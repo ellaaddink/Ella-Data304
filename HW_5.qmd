@@ -1,0 +1,21 @@
+---
+title: "HW 5"
+author: "Ella Addink"
+format: 
+  html:
+    embed-resources: true
+    code-tools: true 
+editor: visual
+---
+
+Exercise 1
+
+What marks are being used? What variables are mapped to which properties?
+
+What is the main story of this graphic?
+
+What makes it a good graphic?
+
+What features do you think you would know how to implement in Vega-Lite?
+
+Are there any features of the graphic that you would not know how to do in Vega-Lite? If so, list them.
