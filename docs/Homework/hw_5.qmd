@@ -8,14 +8,26 @@ code-tools: true
 
 ## Exercise 1
 
-What marks are being used? What variables are mapped to which properties?
+![[Graphic found here](https://r-graph-gallery.com/web-ridgeline-plot-with-inside-plot-and-annotations.html)](san_fran_rent_graphic.png){width="70%"}
 
-What is the main story of this graphic?
+1.  What marks are being used? What variables are mapped to which properties?
 
-What makes it a good graphic?
+    Dots, bars, histograms, ...
 
-What features do you think you would know how to implement in Vega-Lite?
+2.  What is the main story of this graphic?
 
-Are there any features of the graphic that you would not know how to do in Vega-Lite? If so, list them.
+    Certain search words lead to certain priced apartments possibly?
+
+3.  What makes it a good graphic?
+
+    it utilizes many different features and i like it
+
+4.  What features do you think you would know how to implement in Vega-Lite?
+
+    the dots
+
+5.  Are there any features of the graphic that you would not know how to do in Vega-Lite? If so, list them.
+
+    No clue how to make that legend
 
 ## Exercise 2
