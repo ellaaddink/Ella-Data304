@@ -1,13 +1,11 @@
 ---
-title: "My even better website"
+title: "Data 304 Website"
+author:  "Ella Addink"
 format: html
 embed-resources: true
+toc: true
 ---
 
-## Section 1 
+## Homework
 
-Yayyyyyyyyy
-
-## Section 2 
-
-Yayyyyyyyy2.0
+[HW 5](Homework/hw_5.html)
