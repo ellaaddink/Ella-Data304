@@ -12,22 +12,93 @@ code-tools: true
 
 1.  What marks are being used? What variables are mapped to which properties?
 
-    Dots, bars, histograms, ...
+    -   A "point" mark is used to show the median rent for houses within each adjective group. For the points, rent is mapped to the x position and the adjective is mapped to the y position.
+
+    -   A "line" mark is used to show the median rent of all houses and apartments. For the line, median rent is again mapped to the x position.
+
+    -   A "bar" mark is used to show the distribution of rent prices corresponding to each adjective. Again, rent is mapped to the x position and adjective is mapped to the y. The percentile category that a rent price is in is mapped to color.
+
+    -   An "area" mark is used to also show the distribution of rent prices corresponding to each adjective. Rent is again mapped to the x axis. Count of houses is mapped to another smaller y axis for each adjective.
+
+    -   A "text" mark is used to show the median or average number of bedrooms for each adjective. Adjective is again mapped to the (larger) y position.
 
 2.  What is the main story of this graphic?
 
-    Certain search words lead to certain priced apartments possibly?
+    The main story of this graphic is that there may be a relationship between the rent of houses for sale in this area and the adjectives used to describe these houses on Craigslist. It appears that certain descriptors are tied to a relatively lower rent than other descriptors.
 
 3.  What makes it a good graphic?
 
-    it utilizes many different features and i like it
+    This graphic utilizes many different kinds of marks and I think it does a good job at layering and combining these to highlight the differences in rent between the different adjectives used. It is, for the most part, clear and easy to understand. The title, caption, labels, and legend are concise yet informative and helpful.
 
 4.  What features do you think you would know how to implement in Vega-Lite?
 
-    the dots
+    I think I would be able to create the x and y axis and points, line, and text marks. The bars are just horizontal bars layered on top of each other which I think I could figure out but I'm not exactly sure how to make the length of the bar correspond to the percent of the data it captures. I could make a density/area plot for the rents and could probably facet by adjective to have a separate plot for each one.
 
 5.  Are there any features of the graphic that you would not know how to do in Vega-Lite? If so, list them.
 
-    No clue how to make that legend
+    In addition to the things I mentioned in the question above that have parts to them I am not sure about, I am also not sure how to make the legend. The legend is itself almost a whole new layer and graphic and I am not sure how it would be added to the main graphic.
 
 ## Exercise 2
+
+```{r warning = FALSE, include = FALSE}
+library(vegawidget)
+```
+
+#### Exercise 1 from the slides
+
+```{r}
+'
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "https://calvin-data304.netlify.app/data/weather-with-dates.csv"},
+  "width": 500,
+  "height": 300,
+  "title": "Daily Maximum Temperatures in Seattle from 2012-2015",
+  "mark": "point",
+  "transform": [
+    {"calculate": "datetime(datum.year, datum.month, datum.day)", "as": "converted_date"},
+    {"filter": {"field": "location", "equal": "Seattle"}}
+  ],
+  "encoding": {
+    "x": {"field": "converted_date", "timeUnit": "monthdate", "type": "temporal", 
+    "title": "Day of the Year"}, 
+    "y": {"field": "temp_max", "type": "quantitative", "title": "Maximum Temperature in Celcius"}, 
+    "color": {"field": "year", "type": "nominal", "title": "Year"}
+}
+}' |> as_vegaspec()
+```
+
+#### Exercise 3 from the slides
+
+```{r}
+'
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "https://calvin-data304.netlify.app/data/weather-with-dates.csv"},
+  "width": 410,
+  "height": 300,
+  "params": [
+    {
+      "name": "weather",
+      "value": "sun",
+      "bind": {"input": "select", "options": ["sun", "rain", "fog", "drizzle", "snow"]}
+    }
+  ],
+  "title": "Monthly Weather in Seattle from 2012-2015",
+  "mark": "line",
+  "transform": [
+    {"calculate": "datetime(datum.year, datum.month, datum.day)", "as": "converted_date"},
+    {"filter": {"field": "location", "equal": "Seattle"}},
+    {"filter": "datum.weather == weather"}
+  ],
+  "encoding": {
+    "x": {"field": "converted_date", "timeUnit": "month", "type": "temporal", "title": 
+    "Month"}, 
+    "y": {"aggregate": "count", "field": "weather", "title": "Numbers of days", 
+    "scale": {"domain": [0, 30]}}, 
+    "facet": {"field": "year", "type": "ordinal", "title": ""}
+  }
+}' |> as_vegaspec()
+```
