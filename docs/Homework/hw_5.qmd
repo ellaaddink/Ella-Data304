@@ -46,7 +46,11 @@ library(vegawidget)
 
 #### Exercise 1 from the slides
 
-```{r}
+1.  Create a graphic that shows the high temperature in Seattle each day.
+
+2.  Now modify this so that the temperatures for the same day of the year are overlaid on top of each other for the several years in the data set.
+
+```{r echo = FALSE}
 '
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
@@ -54,51 +58,70 @@ library(vegawidget)
     "url": "https://calvin-data304.netlify.app/data/weather-with-dates.csv"},
   "width": 500,
   "height": 300,
-  "title": "Daily Maximum Temperatures in Seattle from 2012-2015",
-  "mark": "point",
+  "title": "Daily High Temperature in Seattle (2012-2015)",
+  "mark": "area",
   "transform": [
-    {"calculate": "datetime(datum.year, datum.month, datum.day)", "as": "converted_date"},
-    {"filter": {"field": "location", "equal": "Seattle"}}
+    {"calculate": "datetime(datum.year, datum.month, datum.day)", "as": "converted_date"}, 
+    {"calculate": "datum.temp_max*(1.8) + 32", "as": "temp_max_f"}
   ],
   "encoding": {
     "x": {"field": "converted_date", "timeUnit": "monthdate", "type": "temporal", 
-    "title": "Day of the Year"}, 
-    "y": {"field": "temp_max", "type": "quantitative", "title": "Maximum Temperature in Celcius"}, 
-    "color": {"field": "year", "type": "nominal", "title": "Year"}
+    "title": "Date"}, 
+    "y": {"aggregate": "max", "field": "temp_max_f", "type": "quantitative", 
+    "title": "High Temperature in Fahrenheit"},
+    "y2": {"aggregate": "min", "field": "temp_max_f", "type": "quantitative"},
+    "color": {"value": "purple"}
 }
 }' |> as_vegaspec()
 ```
 
 #### Exercise 3 from the slides
 
-```{r}
+Create a graphic that shows how the different types of weather (rain, fog, etc.) are distributed *by month* in Seattle. When is it rainiest in Seattle? Sunniest?
+
+```{r echo = FALSE}
 '
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "data": {
-    "url": "https://calvin-data304.netlify.app/data/weather-with-dates.csv"},
-  "width": 410,
+  "data": {"url": "https://calvin-data304.netlify.app/data/weather-with-dates.csv"},
+  "width": 500,
   "height": 300,
+  "title": "Monthly Weather in Seattle (2012-2015)",
   "params": [
     {
       "name": "weather",
       "value": "sun",
-      "bind": {"input": "select", "options": ["sun", "rain", "fog", "drizzle", "snow"]}
+      "bind": {"input": "select", "options": ["sun", "fog", "drizzle", "rain", "snow"], 
+      "labels": ["Sun", "Fog", "Drizzle", "Rain", "Snow"]}
     }
   ],
-  "title": "Monthly Weather in Seattle from 2012-2015",
-  "mark": "line",
   "transform": [
-    {"calculate": "datetime(datum.year, datum.month, datum.day)", "as": "converted_date"},
     {"filter": {"field": "location", "equal": "Seattle"}},
-    {"filter": "datum.weather == weather"}
+    {"filter": "datum.weather == weather"},
+    {"aggregate": [{"op": "count", "as": "days"}], "groupby": ["year", "month"]}
   ],
   "encoding": {
-    "x": {"field": "converted_date", "timeUnit": "month", "type": "temporal", "title": 
-    "Month"}, 
-    "y": {"aggregate": "count", "field": "weather", "title": "Numbers of days", 
-    "scale": {"domain": [0, 30]}}, 
-    "facet": {"field": "year", "type": "ordinal", "title": ""}
+    "x": {"field": "month", "type": "ordinal", "timeUnit": "month", "title": "Month", 
+    "scale": {"domain": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", 
+    "Sep", "Oct", "Nov", "Dec"]}}
+  },
+
+  "layer": [
+  {"mark": "rule",
+  "encoding": {
+    "y": {"field": "days", "aggregate": "max"},
+    "y2": {"field": "days", "aggregate": "min"}}
+  },
+
+  {"mark": "point",
+  "encoding": {
+    "y": {"field": "days", "type": "quantitative", "title": "Number of Days", 
+    "scale": {"domain": [0, 30]}},
+    "color": {"field": "year", "title": "Year", "scale": {"domain": ["2012", 
+    "2013", "2014", "2015"]}},
+    "fill": {"value": "white"}, 
+    "fillOpacity": {"value": 1}}
   }
+  ]
 }' |> as_vegaspec()
 ```
