@@ -12,31 +12,31 @@ code-tools: true
 
 1.  What marks are being used? What variables are mapped to which properties?
 
-    -   A "point" mark is used to show the median rent for houses within each adjective group. For the points, rent is mapped to the x position and the adjective is mapped to the y position.
+    -   A "point" mark is used to show the median rent for houses within each adjective group, with rent mapped to the x position and adjective mapped to the y position.
 
-    -   A "line" mark is used to show the median rent of all houses and apartments. For the line, median rent is again mapped to the x position.
+    -   A "rule" mark is used to show the median rent across all houses/apartments, with rent mapped to the x position.
 
-    -   A "bar" mark is used to show the distribution of rent prices corresponding to each adjective. Again, rent is mapped to the x position and adjective is mapped to the y. The percentile category that a rent price is in is mapped to color.
+    -   A "bar" mark is used to show the distribution of rent prices within each adjective group, with rent mapped to the x position, adjective mapped to the y position, and percentile category mapped to color.
 
-    -   An "area" mark is used to also show the distribution of rent prices corresponding to each adjective. Rent is again mapped to the x axis. Count of houses is mapped to another smaller y axis for each adjective.
+    -   An "area" mark is also used to show the distribution of rent prices with rent mapped to the x position and density/count mapped to a secondary y position within each adjective group.
 
-    -   A "text" mark is used to show the median or average number of bedrooms for each adjective. Adjective is again mapped to the (larger) y position.
+    -   A "text" mark is used to show the average number of bedrooms for each adjective, with adjective mapped to the (main) y position.
 
 2.  What is the main story of this graphic?
 
-    The main story of this graphic is that there may be a relationship between the rent of houses for sale in this area and the adjectives used to describe these houses on Craigslist. It appears that certain descriptors are tied to a relatively lower rent than other descriptors.
+    The graphic suggests a possible relationships between the adjectives used in rental listings and the rent prices in the San Francisco Bay Area. It appears that certain descriptors such as "nice" and "clean" are associated with relatively lower median rents while others like "gorgeous" and "furnished" appear more in listings with higher rents.
 
 3.  What makes it a good graphic?
 
-    This graphic utilizes many different kinds of marks and I think it does a good job at layering and combining these to highlight the differences in rent between the different adjectives used. It is, for the most part, clear and easy to understand. The title, caption, labels, and legend are concise yet informative and helpful.
+    This graphic does well at combining multiple layers of information with different mark types. It is easy to see the comparison between rental prices and adjectives used. It is, for the most part, clear and easy to understand. The title, caption, labels, and legend are concise yet informative, and help with interpreting the graphic and scales.
 
 4.  What features do you think you would know how to implement in Vega-Lite?
 
-    I think I would be able to create the x and y axis and points, line, and text marks. The bars are just horizontal bars layered on top of each other which I think I could figure out but I'm not exactly sure how to make the length of the bar correspond to the percent of the data it captures. I could make a density/area plot for the rents and could probably facet by adjective to have a separate plot for each one.
+    I think I would be able to create the x and y axes and the layers with the points, rule, and text marks. I could make horizontal bars but I am not sure what to use to show percentiles like the graphic does. I could make the density/area plots for the rents and I could facet by adjective. It would probably take a lot of tweaking to get the facets to be the right size and line up nicely like they are in the graphic.
 
 5.  Are there any features of the graphic that you would not know how to do in Vega-Lite? If so, list them.
 
-    In addition to the things I mentioned in the question above that have parts to them I am not sure about, I am also not sure how to make the legend. The legend is itself almost a whole new layer and graphic and I am not sure how it would be added to the main graphic.
+    I am not sure how to create the percentile groups used for the bars in the graphic. Maybe I would have to use transformations to create new variables for the percentiles. I am a little unsure about how I would get everything placed correctly such as positioning the number of bedrooms to the left of the bars, but with enough playing around with the scale/range, it would probably be possible. I am not sure how to create the legend as vega-lite would not automatically generate a legend with a whole "example" area and bar plot. I am guessing the legend would need to be a whole additional graphic itself with a smaller size and fine-tuned position, but I am not sure exactly how this would play out. I also would need to look into how to make the arrows and labels in the legend.
 
 ## Exercise 2
 
