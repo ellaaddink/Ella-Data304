@@ -61,6 +61,7 @@ library(vegawidget)
   "title": "Daily High Temperature in Seattle (2012-2015)",
   "mark": "area",
   "transform": [
+    {"filter": {"field": "location", "equal": "Seattle"}},
     {"calculate": "datetime(datum.year, datum.month, datum.day)", "as": "converted_date"}, 
     {"calculate": "datum.temp_max*(1.8) + 32", "as": "temp_max_f"}
   ],
