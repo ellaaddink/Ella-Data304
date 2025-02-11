@@ -1,0 +1,25 @@
+---
+title: "HW 6"
+author: "Ella Addink"
+format: html
+embed-resources: true
+code-tools: true 
+---
+
+## Exercise 1
+
+1.  What is the most interesting lesson, guide, or piece of advice Tufte offers you in this chapter?
+
+2.  Tufte shares some of his favorite graphics in this chapter. Pick one (but not the one about the military advance on and retreat from Russia) and answer the following.
+
+    -   What page is your graphic on? \[Take a screen shot and include the image as well, if you can.\]
+    -   Why did you pick the graphic you chose?
+    -   What encoding channels are used in the graphic? What variables are they associated with?
+    -   What, if any, elements of the graphic would be hard/impossible for you to implement in Vega-Lite (given what we know so far)?
+    -   What point is Tufte illustrating with this graphic?
+
+## Exercise 2
+
+List one or two ideas that you learned in these sections that will change the way you design and create data graphics.
+
+## Exercise 3
