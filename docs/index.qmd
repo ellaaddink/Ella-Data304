@@ -9,3 +9,5 @@ toc: true
 ## Homework
 
 [HW 5](Homework/hw_5.html)
+
+[HW 6](Homework/hw_6.html)
