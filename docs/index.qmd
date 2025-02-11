@@ -10,6 +10,6 @@ toc: true
 
 [HW 5](Homework/hw_5.html)
 
-why is this not workinggggg
+why is this not working
 
 [HW 6](Homework/hw_6.html)
