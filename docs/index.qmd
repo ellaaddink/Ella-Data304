@@ -11,3 +11,5 @@ toc: true
 [HW 5](Homework/hw_5.html)
 
 [HW 6](Homework/hw_6.html)
+
+[HW 7](Homework/hw_7.html)
