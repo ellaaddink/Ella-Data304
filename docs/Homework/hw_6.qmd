@@ -10,7 +10,7 @@ code-tools: true
 
 1.  What is the most interesting lesson, guide, or piece of advice Tufte offers you in this chapter?
 
-    I found Tufte's discussion of the power of data maps to be the most interesting. Tufte shows the first maps showing the count and distribution of 1.3 million galaxies which was a truly new view of the universe. The maps really drive home his point that data maps can "place millions of bits of information on a single page before our eyes."
+    I found Tufte's discussion of the power of data maps to be the most interesting. Tufte shows maps displaying the count and distribution of 1.3 million galaxies and discusses how this was a truly new view of the universe when they were created. The maps really drive home his point that data maps can "place millions of bits of information on a single page before our eyes." Therefore, data visualizations hold great power when designed and used well.
 
 2.  Tufte shares some of his favorite graphics in this chapter. Pick one (but not the one about the military advance on and retreat from Russia) and answer the following.
 
@@ -22,22 +22,135 @@ code-tools: true
 
     -   Why did you pick the graphic you chose?
 
-        -   
+        -   This graphic intigued me because I don't think I have seen a graphic before with circles and vertical lines used in this way. It was also introduced as one of the first graphics that were "designs in themselves" and not maps based on time and space of the physical world.
 
     -   What encoding channels are used in the graphic? What variables are they associated with?
 
-        -   
+        -   For the circle/arc marks:
+
+            -   X position is mapped to nation of Europe
+
+            -   Size is mapped to the physical area of each country
+
+            -   Color and area within each country are mapped to what appears to be the percent that contains European, Asiatic, or African dominance
+
+        -   For the vertical rule marks:
+
+            -   X position is mapped to both country and whether the value is the population or taxes collected (population is on the left and taxes are on the right of each country)
+
+            -   Y position is mapped to either the population of the country in millions or the taxes collected in millions of pounds
+
+            -   Color is also mapped to whether it is a population or taxes value
+
+        -   For the diagonal rule marks:
+
+            -   Y1 is mapped to the population
+
+            -   Y2 is mapped to the taxes collected
+
+            -   X1 and X2 are determined by the left and right sides of each arc mark (which is determined by size of the country)
+
+        -   There are also possible text marks above and inside each country but I am not sure if these correspond to new variables or are just labels, giving viewers specifics for country size, population, or taxes
 
     -   What, if any, elements of the graphic would be hard/impossible for you to implement in Vega-Lite (given what we know so far)?
 
-        -   
+        -   Most elements seem doable, but I am not exactly sure whether I would use arc marks for these circles or point marks. All the countries except for the Turkish Empire could be created with point marks simply sized by country area. The Russian Empire would be tricky but I think you could size it by total area and then layer on top another point with the area of European dominance. However, because the Turkish Empire uses arced segments inside the circle, I would need to use the arc mark, but would I use it for just the Turkish Empire or all? If I use the arc mark for all, then the circles would need to be faceted by country instead of just lying on a nominal x axis.
+
+        -   I think I could create two y axes using layering and resolve with independent axes, but I am not exactly sure if this would work
 
     -   What point is Tufte illustrating with this graphic?
 
-        -   
+        -   Tufte describes this graphic as one of William Playfair's first graphics that were designs-in-themselves and not corresponding to the physical world. Playfair was one of two great inventors of modern graphical designs and previous to this and others he published in The Statistical Breviary, visualizations were maps or time-series graphics still analogies to the physical world. Tufte presents this graphic as displaying multivariate data in an effective way and the first application of the pie chart. It effectively shows the physical size, population, and taxation of the principle nations of Europe. Although the slopes of the slanted lines connecting the population and taxes are uninformative, the signs of the slopes do show us quickly which countries have excessive taxation, primarily Britain in this graphic.
 
 ## Exercise 2
 
-List one or two ideas that you learned in these sections that will change the way you design and create data graphics.
+-   Bar charts must have a zero baseline because we need the context of the full bars in order to make comparisons. If a zero baseline does not make much sense with the specific context, then there is probably another mark/graphic design altogether that would work better. With points or lines, it is okay to change the axis because we are focusing on the relative positions of the points and lines in space.
+
+-   As seen in Exercise 2.8, labeling things right on the graphic can sometimes be better than having a legend and axis, forcing your eyes to look back and forth. Having two y axes makes this even more complicated and is not advised.
+
+-   I liked the advice on page 102 to talk through your graphics. What you end up saying might reveal areas where you can make things more clear or remove things that are not helpful or important.
 
 ## Exercise 3
+
+1.  List three things that are not ideal about this graph. What makes it challenging?
+    -   The two y axes make it challenging to understand the graphic. A person has to look back and forth constantly at the two axes. Also, one of the axes starts at 0% while the other starts at 50% which I do not think is ideal either. Bars should have a zero baseline so you can accurately compare their heights.
+    -   Although not a huge problem, I do not think it is ideal to have a legend and force the viewer to check it (probably more than once) to understand what values are mapped to each color.
+    -   The orange labels are harder to read because they overlap the line and bars in some spots. I don't love the layering of the line on top of the bars in general because it makes the graphic busier.
+
+<!-- -->
+
+2.  For each of the three things you’ve listed, describe how you would overcome the given challenge.
+
+    -   Instead of having two different axes for response and completion, I would use only one axes with values going from 0-100%. Color can still distinguish response from completion.
+
+    -   To fix this issue, I could label the lines themselves as "Completion Rate" and "Response Rate" in the correct corresponding colors.
+
+    -   I would make this graphic easier to look at by making both completion and response rates line marks. You could make both of them bars and put them side-by-side for each date, but because the x axis is time, I like lines better. With lines, the labels for each data point will be easier to see and read. This could change if the values for completion and response were closer to each other, but for this data, it is possible to label them nicely.
+
+3.  Create your visual that puts into practice the strategies you’ve outlined. I also need to use concatenation, layers, or repeats.
+
+```{r warning = FALSE, include = FALSE}
+library(vegawidget)
+```
+
+```{r}
+'
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+   "data":
+    { "values" :
+        [{"Date":"Q1-2017","Completion Rate":0.91,"Response Rate":0.023},
+        {"Date":"Q2-2017","Completion Rate":0.93,"Response Rate":0.018},
+        {"Date":"Q3-2017","Completion Rate":0.91,"Response Rate":0.028},
+        {"Date":"Q4-2017","Completion Rate":0.89,"Response Rate":0.023},
+        {"Date":"Q1-2018","Completion Rate":0.84,"Response Rate":0.034},
+        {"Date":"Q2-2018","Completion Rate":0.88,"Response Rate":0.027},
+        {"Date":"Q3-2018","Completion Rate":0.91,"Response Rate":0.026},
+        {"Date":"Q4-2018","Completion Rate":0.87,"Response Rate":0.039},
+        {"Date":"Q1-2019","Completion Rate":0.83,"Response Rate":0.028}] 
+    },
+  "title": "Higher Completion than Response Rates for Emailed Surveys",
+  "repeat": {"layer": ["Completion Rate", "Response Rate"]},
+  "spec": {
+    "width": 500,
+    "height": 300,
+    "encoding": {
+      "x": {"field": "Date", "type": "ordinal", 
+      "scale": {"domain": ["Q1-2017", "Q2-2017", "Q3-2017", "Q4-2017", "Q1-2018", "Q2-2018", 
+      "Q3-2018", "Q4-2018", "Q1-2019"]}, 
+      "axis": {"labelAngle": -20} }
+    },
+    "layer": [
+    {"mark": "line",
+      "encoding": {
+      "y": {"field": {"repeat": "layer"}, "type": "quantitative", 
+      "title": null, "axis": {"format": "p"}},
+      "color": {"datum": {"repeat": "layer"}, "legend": null}
+    }},
+    {"mark": "point",
+    "encoding": {
+      "y": {"field": {"repeat": "layer"}, "type": "quantitative"},
+      "color": {"datum": {"repeat": "layer"}},
+      "fill": {"datum": {"repeat": "layer"}},
+      "fillOpacity": {"value": 1}
+    }}, 
+    {"mark": {"type": "text", "size": 10, "color": "black", "baseline": "bottom", "yOffset": -5}, 
+    "encoding": {
+      "text": {"field": {"repeat": "layer"}, "format": ".2p"}, 
+      "y": {"field": {"repeat": "layer"}, "type": "quantitative"}}
+    },
+    {"mark": {"type": "text", "size": 12, "fontWeight": "bold", "color": "black", "xOffset": 80}, 
+    "transform": [{"filter": {"field": "Date", "equal": "Q1-2019"}}],
+    "encoding": {
+      "text": {"datum": {"repeat": "layer"}}, 
+      "color": {"datum": {"repeat": "layer"}},
+      "y": {"field": {"repeat": "layer"}, "type": "quantitative"}}
+    }]
+  }
+}
+' |> as_vegaspec()
+```
+
+My design was definitely influenced by Knaflic's critique of the graphic on pages 87-89. Knaflic notes how two y axes make it harder to understand the graphic. I tried to label things directly (both the points and lines) because Knaflic notes how this makes it easier instead of having to compare against the axis or a legend. I tried to think about what was actually needed to understand the graphic and why it was needed. I removed the label for the y axis because I realized my previous label "Percent" was not super informative or necessary.
+
+\*\* I CANNOT figure out why the graphic looks all messed up on here. In vega-lite, it runs and looks fine. There is a squiggly line warning under my first use of "mark", but I cannot figure out why and I am guessing this is why it is having trouble rendering as an html.
