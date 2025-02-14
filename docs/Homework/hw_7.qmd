@@ -1,0 +1,15 @@
+---
+title: "HW 7"
+author: "Ella Addink"
+format: html
+embed-resources: true
+code-tools: true 
+---
+
+## Exercise 1
+
+## Exercise 2
+
+## Exercise 3
+
+## Exercise 4
