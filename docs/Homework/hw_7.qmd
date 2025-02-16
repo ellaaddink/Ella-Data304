@@ -6,10 +6,119 @@ embed-resources: true
 code-tools: true 
 ---
 
+```{r include = FALSE}
+library(vegawidget)
+```
+
 ## Exercise 1
+
+a.  List some guidelines/advice Wilke gives about creating bar charts.
+
+b.  When is it not advised to use a bar chart? Why?
+
+c.  What alternatives to bars are mentioned in this chapter?
+
+d.  What guidance does Wilke give about whether or not to stack bars vs. dodge them (using an offset in Vega-Lite)?
+
+e.  Recreate Figure 6.3
+
+```{r}
+'
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {"url": "https://calvin-data304.netlify.app/data/cow-movies.csv"},
+  "width": 400, 
+  "height": 300,
+  "transform": [
+    {"calculate": "datum.amount / 1000000", "as": "amount_in_millions"}
+  ],
+  "mark": "bar",
+  "encoding": {
+   "x": {"field": "amount_in_millions", "type": "quantitative", 
+   "title": "weekend gross (million USD)"},
+   "y": {"field": "title_short", "type": "nominal", "title": null,
+   "sort": {"field": "amount", "order": "descending"}}
+  }
+}
+' |> as_vegaspec()
+```
+
+f. Recreate Figure 6.8 and 6.9
+
+```{r}
+'
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {"url": "https://calvin-data304.netlify.app/data/cow-income.csv"},
+  "width": 400, 
+  "height": 250,
+  "transform": [
+  {"filter": {"field": "race", "oneOf": ["asian", "white", "hispanic", 
+    "black"]}}
+  ],
+  "mark": "bar",
+  "encoding": {
+   "x": {"field": "race", "type": "nominal", "title": null,
+   "sort": {"field": "median_income", "order": "descending"},
+   "axis": {"labelAngle": 0}},
+   "y": {"field": "median_income", "type": "quantitative", 
+   "title": "median income (USD)", "axis": {"format": "$,f"}},
+   "color": {"field": "age", "type": "ordinal", "title": "age (yrs)"},
+   "xOffset": {"field": "age"}
+  }
+}
+' |> as_vegaspec()
+```
+
+```{r}
+'
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {"url": "https://calvin-data304.netlify.app/data/cow-income.csv"},
+  "width": 300, 
+  "height": 150,
+  "transform": [
+  {"filter": {"field": "race", "oneOf": ["asian", "white", "hispanic", 
+    "black"]}}
+  ],
+  "mark": "bar",
+  "encoding": {
+   "x": {"field": "age", "type": "ordinal", "title": "age (years)",
+   "axis": {"labelAngle": 0}},
+   "y": {"field": "median_income", "type": "quantitative", 
+   "title": "median income (USD)", "axis": {"format": "$,f"}},
+   "facet": {"field": "race", "type": "nominal", "title": null, "columns": 2, 
+   "sort": {"op": "median", "field": "median_income", "order": "descending"}}
+  }
+}
+' |> as_vegaspec()
+```
+
+g. Recreate Figure 6.11 and explain why Figures 6.12 and 6.13 are labeled “bad”.
 
 ## Exercise 2
 
+b. List at least three pieces of advice you can glean from this video that might help you design good graphics.
+
+c. There are two figures in this video that come from Chapter 1 of Tufte (2001). Did you spot them? Which figures are they?
+
 ## Exercise 3
 
+a. In Vega-Lite lingo, what makes something be a heat map?
+
+b. Recreate Figure 6.14 or 6.15 from Wilke (2019) (your choice). Or get fancy and include an interactive element that let’s you select the year to order by. 
+
+c. At around 20:10, Healy presents a possible problem with heat maps, what is it?
+
+d. But starting at around 44:12, he presents a heat map as a “show pony”. Why isn’t the problem presented earlier an issue here? Is it an issue in the figure you make in part b? Why or why not?
+
 ## Exercise 4
+
+a. What does Healy have to say about pie charts in his video?
+
+b. How does that compare to what Wilke says in Section 10.1 of Wilke (2019)?
+
+c. What alternatives does Wilke present to pie charts and in what situations does he favor each? (You should be comparing pie charts to two other types of graphics that can be made with the same sort of data.)
+
+d. We won’t make many pie charts, but I suppose you should make at least one. To do this in Vega-Lite, use an arc mark. Recreate Figure 10.1 of Wilke (2019).
+
