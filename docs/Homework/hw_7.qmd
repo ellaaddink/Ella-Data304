@@ -13,13 +13,25 @@ library(vegawidget)
 ## Exercise 1
 
 a.  List some guidelines/advice Wilke gives about creating bar charts.
+    -   He advises that when labels for bars are too long, swapping to horizontal bars is better than rotating the labels under vertical bars.
 
+    -   It makes most sense to order the bars by size, unless the variable is ordinal, then the graphic should retain that ordering.
+
+    -   When a plot displays only a small number of different values, it makes sense to add the values to the plot and an explicit y axis is no longer needed (applies to more than just bar charts).
+
+    -   Bars need to start at zero so bar length is actually proportional to the data values
 b.  When is it not advised to use a bar chart? Why?
+    -   When it is impractical to start bars at zero in a bar chart or doing so hinders the graphic from conveying what it was suppose to, bars should not be used.
 
+    -   It is also not advised with very large datasets because with too many bars and/or groups of bars, it can get too busy and very confusing.
 c.  What alternatives to bars are mentioned in this chapter?
+    -   Dot plots are a good alternative when it is impractical for bars to start at zero. With dots, we can limit the axis range to where the data are located.
 
+    -   Heatmaps are a good alternative for very large datasets which instead map the data values onto colors. They make it harder to determine exact data values, but do very well at highlighting broader trends.
 d.  What guidance does Wilke give about whether or not to stack bars vs. dodge them (using an offset in Vega-Lite)?
+    -   Wilke says to be careful with grouped bar plots because they show a lot of information at once and can be confusing. It is hard to compare bars of the same color across the groups on x axis, so he actually prefers faceting by one of the variables to reduce the mental effort needed to understand.
 
+    -   Wilke says that stacking bars is useful when summing individually stacked bars is meaningful in itself or when individual bars represent counts so stacking them gives a meaningful total count.
 e.  Recreate Figure 6.3
 
 ```{r}
@@ -43,7 +55,7 @@ e.  Recreate Figure 6.3
 ' |> as_vegaspec()
 ```
 
-f. Recreate Figure 6.8 and 6.9
+f.  Recreate Figure 6.8 and 6.9
 
 ```{r}
 '
@@ -94,31 +106,149 @@ f. Recreate Figure 6.8 and 6.9
 ' |> as_vegaspec()
 ```
 
-g. Recreate Figure 6.11 and explain why Figures 6.12 and 6.13 are labeled “bad”.
+g.  Recreate Figure 6.11 and explain why Figures 6.12 and 6.13 are labeled “bad”.
+
+```{r}
+' 
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {"url": "https://calvin-data304.netlify.app/data/cow-gapminder.csv"},
+  "width": 200, 
+  "height": 400,
+  "transform": [
+   {"filter": {"field": "year", "equal": "2007"}},
+   {"filter": {"field": "continent", "equal": "Americas"}}
+  ],
+  "mark": {"type": "point", "filled": true},
+  "encoding": {
+   "x": {"field": "lifeExp", "type": "quantitative", 
+   "title": "life expectancy (years)", "scale": {"domain": [60,81]},
+   "axis": {"grid": true}},
+   "y": {"field": "country", "type": "nominal", "title": null,
+   "sort": {"field": "lifeExp", "order": "descending"}, "axis": {"grid": true}},    
+   "color": {"value": "blue"},
+   "fill": {"value": "blue"}
+  }
+}
+' |> as_vegaspec()
+```
+
+Figure 6.12 is considered "bad" because the bars are very long and have similar lengths. Therefore, your eyes are drawn to the middle of the bars instead of the end points. Figure 6.13 is "bad" because the countries are ordered alphabetically which is confusing and does not portray a clear message.
 
 ## Exercise 2
 
-b. List at least three pieces of advice you can glean from this video that might help you design good graphics.
+b.  List at least three pieces of advice you can glean from this video that might help you design good graphics.
 
-c. There are two figures in this video that come from Chapter 1 of Tufte (2001). Did you spot them? Which figures are they?
+    -   Humans are good at detecting patterns and we will find them whether they are actually there in the data or not. Therefore, we must be careful about the data we use and the designs we choose.
+
+    -   Changing the aspect ratio of graphics can mess with how we perceive the data. With wider graphics, values can appear to change more gradually and with tall skinny graphics, values see to change more rapidly.
+
+    -   We need to be aware of who we are sharing our graphics with and what we can expect them to know or not.
+
+    -   A well-designed workhorse (basic graph type) can do a whole lot for us.
+
+c.  There are two figures in this video that come from Chapter 1 of Tufte (2001). Did you spot them? Which figures are they?
+
+    -   Charles Minard's graphic of Napoleon's retreat from Moscow is in the video. I cannot figure out what the other one is.
 
 ## Exercise 3
 
-a. In Vega-Lite lingo, what makes something be a heat map?
+a.  In Vega-Lite lingo, what makes something be a heat map?
 
-b. Recreate Figure 6.14 or 6.15 from Wilke (2019) (your choice). Or get fancy and include an interactive element that let’s you select the year to order by. 
+    -   A heat map is where we use a "rect" mark and discrete variables for the x and y channels and where a quantitative variable determines the color for each rectangle.
 
-c. At around 20:10, Healy presents a possible problem with heat maps, what is it?
+b.  Recreate Figure 6.14 or 6.15 from Wilke (2019) (your choice). Or get fancy and include an interactive element that let’s you select the year to order by.
 
-d. But starting at around 44:12, he presents a heat map as a “show pony”. Why isn’t the problem presented earlier an issue here? Is it an issue in the figure you make in part b? Why or why not?
+```{r}
+    '
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {"url": "https://calvin-data304.netlify.app/data/cow-internet2.csv"},
+  "width": 500,
+  "height": 300,
+  "mark": "rect",
+  "encoding": {
+    "x": {"field": "year", "type": "ordinal", "title": null,
+    "scale": {"domain": ["1994", "1995", "1996", "1997", "1998",
+    "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016"]},
+    "axis": {"ticks": false, "labelAngle": 0,
+    "labelColor": {
+      "condition": {"test": "datum.value == \\\"1995\\\" || datum.value == \\\"2000\\\" || datum.value == \\\"2005\\\" || datum.value == \\\"2010\\\" || datum.value == \\\"2015\\\"", "value": "black"}, "value": null}}}, 
+
+    "y": {"field": "country", "type": "nominal", "title": null,
+    "axis": {"ticks": false, "orient": "right"},
+    "sort": {"field": "users", "op": "median", "order": "descending"}},
+    "color": {"field": "users", "type": "quantitative", "title": "internet users / 100 people", "legend": {"orient": "top", "values": [0, 25, 50, 75, 100]},
+    "scale": {"scheme": "magma"}}
+  } 
+}
+    ' |> as_vegaspec()
+```
+
+I could not figure out how to order this like either Figure 6.14 or 6.15. I tried using a condition like I did for keeping only certain tick labels but it was not working...
+
+
+c.  At around 20:10, Healy presents a possible problem with heat maps, what is it?
+
+    -   With heat maps, it can be hard to tell which squares are the same color shade because of the colors surrounding them. We interpret the relative differences between the colors in different ways depending on where they are placed.
+
+d.  But starting at around 44:12, he presents a heat map as a “show pony”. Why isn’t the problem presented earlier an issue here? Is it an issue in the figure you make in part b? Why or why not?
+
+    -   I don't think this is as much of an issue here because this graphic of deaths in France involves a lot more data, so much so that you cannot see the individual squares anymore. Also, the color scale used here involves more distinct color hues, so it is easier to tell colors apart from each other. For my figure, I don't think it is a huge issue because I am using a multi-hue color scale, so the general trends can be seen. However, it is still difficult to tell if two rectangles within the same hue and far from each other on the graphic are the same color or not.
 
 ## Exercise 4
 
-a. What does Healy have to say about pie charts in his video?
+a.  What does Healy have to say about pie charts in his video?
 
-b. How does that compare to what Wilke says in Section 10.1 of Wilke (2019)?
+    -   Healy says that the reason many professionals do not like pie charts is because it is hard for the human eye to compare angles and relative areas whereas we have no problem comparing lengths in a bar chart.
 
-c. What alternatives does Wilke present to pie charts and in what situations does he favor each? (You should be comparing pie charts to two other types of graphics that can be made with the same sort of data.)
+b.  How does that compare to what Wilke says in Section 10.1 of Wilke (2019)?
 
-d. We won’t make many pie charts, but I suppose you should make at least one. To do this in Vega-Lite, use an arc mark. Recreate Figure 10.1 of Wilke (2019).
+    -   Wilke believes that no one type of visualization is consistently superior over the others. He does think that there are times when a pie chart may be the best option with the dataset you have and the specific story you want to tell.
 
+c.  What alternatives does Wilke present to pie charts and in what situations does he favor each? (You should be comparing pie charts to two other types of graphics that can be made with the same sort of data.)
+
+    -   Wilke favors pie charts when the goal is to point out simple fractions and you have a very small dataset. They can successfully visualize data as proportions of a whole.
+
+    -   Stacked bar charts also can visualize data as proportions of a whole, but are a good alternative to pies when you want to make side-by-side comparisons of multiple conditions or when looking at something over time.
+
+    -   Side-by-side bar charts do not portray data as proportions of a whole, but unlike pie charts and stacked bars, they allow you to directly compare individual proportions and work well when the "whole" is broken into many pieces.
+
+d.  We won’t make many pie charts, but I suppose you should make at least one. To do this in Vega-Lite, use an arc mark. Recreate Figure 10.1 of Wilke (2019).
+
+```{r}
+    '
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "values": [
+      {"party": "SPD", "seats": 214},
+       {"party": "FDP", "seats": 39},
+      {"party": "CDU/CSU", "seats": 243}
+    ]
+  },
+  "width": 300,
+  "height": 300,
+  "encoding": {
+    "theta": {"field": "seats", "type": "quantitative", "stack": true},
+    "color": {"field": "party", "type": "nominal", "legend": null}
+  },
+  "layer": [{
+    "mark": {"type": "arc", "outerRadius": 100}
+  }, 
+  {"mark": {"type": "text", "radius": 130},
+  "encoding": {
+    "text": {"field": "party", "type": "nominal"},
+    "color": {"value": "black"}
+  }},
+  {"mark": {"type": "text", "radius": 70},
+  "encoding": {
+    "text": {"field": "seats", "type": "nominal"},
+    "color": {"value": "white"}
+  }}
+  ]
+}
+    ' |> as_vegaspec()
+```
+
+I could not figure out how to get the seat number labels to line up properly with the pie wedges.. If I leave them as matching the colors of the wedges, then they line up fine (but you can't see them because they blend in with the pie). However, when I set them to be white, they are no longer correct.

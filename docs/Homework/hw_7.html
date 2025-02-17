@@ -4333,11 +4333,29 @@ if (HTMLWidgets.shinyMode) {
 <section id="exercise-1" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-1">Exercise 1</h2>
 <ol type="a">
-<li><p>List some guidelines/advice Wilke gives about creating bar charts.</p></li>
-<li><p>When is it not advised to use a bar chart? Why?</p></li>
-<li><p>What alternatives to bars are mentioned in this chapter?</p></li>
-<li><p>What guidance does Wilke give about whether or not to stack bars vs. dodge them (using an offset in Vega-Lite)?</p></li>
-<li><p>Recreate Figure 6.3</p></li>
+<li>List some guidelines/advice Wilke gives about creating bar charts.
+<ul>
+<li><p>He advises that when labels for bars are too long, swapping to horizontal bars is better than rotating the labels under vertical bars.</p></li>
+<li><p>It makes most sense to order the bars by size, unless the variable is ordinal, then the graphic should retain that ordering.</p></li>
+<li><p>When a plot displays only a small number of different values, it makes sense to add the values to the plot and an explicit y axis is no longer needed (applies to more than just bar charts).</p></li>
+<li><p>Bars need to start at zero so bar length is actually proportional to the data values</p></li>
+</ul></li>
+<li>When is it not advised to use a bar chart? Why?
+<ul>
+<li><p>When it is impractical to start bars at zero in a bar chart or doing so hinders the graphic from conveying what it was suppose to, bars should not be used.</p></li>
+<li><p>It is also not advised with very large datasets because with too many bars and/or groups of bars, it can get too busy and very confusing.</p></li>
+</ul></li>
+<li>What alternatives to bars are mentioned in this chapter?
+<ul>
+<li><p>Dot plots are a good alternative when it is impractical for bars to start at zero. With dots, we can limit the axis range to where the data are located.</p></li>
+<li><p>Heatmaps are a good alternative for very large datasets which instead map the data values onto colors. They make it harder to determine exact data values, but do very well at highlighting broader trends.</p></li>
+</ul></li>
+<li>What guidance does Wilke give about whether or not to stack bars vs. dodge them (using an offset in Vega-Lite)?
+<ul>
+<li><p>Wilke says to be careful with grouped bar plots because they show a lot of information at once and can be confusing. It is hard to compare bars of the same color across the groups on x axis, so he actually prefers faceting by one of the variables to reduce the mental effort needed to understand.</p></li>
+<li><p>Wilke says that stacking bars is useful when summing individually stacked bars is meaningful in itself or when individual bars represent counts so stacking them gives a meaningful total count.</p></li>
+</ul></li>
+<li>Recreate Figure 6.3</li>
 </ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span></span>
@@ -4359,8 +4377,8 @@ if (HTMLWidgets.shinyMode) {
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span> <span class="sc">|&gt;</span> <span class="fu">as_vegaspec</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="htmlwidget-1277e11d837d4d1b3203" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1277e11d837d4d1b3203">{"x":{
+<div id="htmlwidget-a6595cab251978acce75" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a6595cab251978acce75">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "data": {
@@ -4426,8 +4444,8 @@ if (HTMLWidgets.shinyMode) {
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span> <span class="sc">|&gt;</span> <span class="fu">as_vegaspec</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="htmlwidget-11063026a54e3190016b" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-11063026a54e3190016b">{"x":{
+<div id="htmlwidget-abe5fc3426670cdc389d" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-abe5fc3426670cdc389d">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "data": {
@@ -4510,8 +4528,8 @@ if (HTMLWidgets.shinyMode) {
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span> <span class="sc">|&gt;</span> <span class="fu">as_vegaspec</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="htmlwidget-3c5ba339933689cb8f89" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3c5ba339933689cb8f89">{"x":{
+<div id="htmlwidget-d93dffce3a7f20d2c7a7" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d93dffce3a7f20d2c7a7">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "data": {
@@ -4573,31 +4591,392 @@ if (HTMLWidgets.shinyMode) {
 <ol start="7" type="a">
 <li>Recreate Figure 6.11 and explain why Figures 6.12 and 6.13 are labeled “bad”.</li>
 </ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; </span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="st">{</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;$schema&quot;: &quot;https://vega.github.io/schema/vega-lite/v5.json&quot;,</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;data&quot;: {&quot;url&quot;: &quot;https://calvin-data304.netlify.app/data/cow-gapminder.csv&quot;},</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;width&quot;: 200, </span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;height&quot;: 400,</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;transform&quot;: [</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="st">   {&quot;filter&quot;: {&quot;field&quot;: &quot;year&quot;, &quot;equal&quot;: &quot;2007&quot;}},</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="st">   {&quot;filter&quot;: {&quot;field&quot;: &quot;continent&quot;, &quot;equal&quot;: &quot;Americas&quot;}}</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="st">  ],</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;mark&quot;: {&quot;type&quot;: &quot;point&quot;, &quot;filled&quot;: true},</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;encoding&quot;: {</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;x&quot;: {&quot;field&quot;: &quot;lifeExp&quot;, &quot;type&quot;: &quot;quantitative&quot;, </span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;title&quot;: &quot;life expectancy (years)&quot;, &quot;scale&quot;: {&quot;domain&quot;: [60,81]},</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;axis&quot;: {&quot;grid&quot;: true}},</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;y&quot;: {&quot;field&quot;: &quot;country&quot;, &quot;type&quot;: &quot;nominal&quot;, &quot;title&quot;: null,</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;sort&quot;: {&quot;field&quot;: &quot;lifeExp&quot;, &quot;order&quot;: &quot;descending&quot;}, &quot;axis&quot;: {&quot;grid&quot;: true}},    </span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;color&quot;: {&quot;value&quot;: &quot;blue&quot;},</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;fill&quot;: {&quot;value&quot;: &quot;blue&quot;}</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span> <span class="sc">|&gt;</span> <span class="fu">as_vegaspec</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="htmlwidget-3e81490023f1aea3c733" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3e81490023f1aea3c733">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+      "url": "https://calvin-data304.netlify.app/data/cow-gapminder.csv"
+    },
+    "width": 200,
+    "height": 400,
+    "transform": [
+      {
+        "filter": {
+          "field": "year",
+          "equal": "2007"
+        }
+      },
+      {
+        "filter": {
+          "field": "continent",
+          "equal": "Americas"
+        }
+      }
+    ],
+    "mark": {
+      "type": "point",
+      "filled": true
+    },
+    "encoding": {
+      "x": {
+        "field": "lifeExp",
+        "type": "quantitative",
+        "title": "life expectancy (years)",
+        "scale": {
+          "domain": [
+            60,
+            81
+          ]
+        },
+        "axis": {
+          "grid": true
+        }
+      },
+      "y": {
+        "field": "country",
+        "type": "nominal",
+        "title": null,
+        "sort": {
+          "field": "lifeExp",
+          "order": "descending"
+        },
+        "axis": {
+          "grid": true
+        }
+      },
+      "color": {
+        "value": "blue"
+      },
+      "fill": {
+        "value": "blue"
+      }
+    }
+  },
+  "embed_options": {
+    "renderer": "canvas",
+    "defaultStyle": true
+  }
+},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>Figure 6.12 is considered “bad” because the bars are very long and have similar lengths. Therefore, your eyes are drawn to the middle of the bars instead of the end points. Figure 6.13 is “bad” because the countries are ordered alphabetically which is confusing and does not portray a clear message.</p>
 </section>
 <section id="exercise-2" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-2">Exercise 2</h2>
 <ol start="2" type="a">
-<li><p>List at least three pieces of advice you can glean from this video that might help you design good graphics.</p></li>
-<li><p>There are two figures in this video that come from Chapter 1 of Tufte (2001). Did you spot them? Which figures are they?</p></li>
+<li><p>List at least three pieces of advice you can glean from this video that might help you design good graphics.</p>
+<ul>
+<li><p>Humans are good at detecting patterns and we will find them whether they are actually there in the data or not. Therefore, we must be careful about the data we use and the designs we choose.</p></li>
+<li><p>Changing the aspect ratio of graphics can mess with how we perceive the data. With wider graphics, values can appear to change more gradually and with tall skinny graphics, values see to change more rapidly.</p></li>
+<li><p>We need to be aware of who we are sharing our graphics with and what we can expect them to know or not.</p></li>
+<li><p>A well-designed workhorse (basic graph type) can do a whole lot for us.</p></li>
+</ul></li>
+<li><p>There are two figures in this video that come from Chapter 1 of Tufte (2001). Did you spot them? Which figures are they?</p>
+<ul>
+<li>Charles Minard’s graphic of Napoleon’s retreat from Moscow is in the video. I cannot figure out what the other one is.</li>
+</ul></li>
 </ol>
 </section>
 <section id="exercise-3" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-3">Exercise 3</h2>
 <ol type="a">
-<li><p>In Vega-Lite lingo, what makes something be a heat map?</p></li>
+<li><p>In Vega-Lite lingo, what makes something be a heat map?</p>
+<ul>
+<li>A heat map is where we use a “rect” mark and discrete variables for the x and y channels and where a quantitative variable determines the color for each rectangle.</li>
+</ul></li>
 <li><p>Recreate Figure 6.14 or 6.15 from Wilke (2019) (your choice). Or get fancy and include an interactive element that let’s you select the year to order by.</p></li>
-<li><p>At around 20:10, Healy presents a possible problem with heat maps, what is it?</p></li>
-<li><p>But starting at around 44:12, he presents a heat map as a “show pony”. Why isn’t the problem presented earlier an issue here? Is it an issue in the figure you make in part b? Why or why not?</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="st">{</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;$schema&quot;: &quot;https://vega.github.io/schema/vega-lite/v5.json&quot;,</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;data&quot;: {&quot;url&quot;: &quot;https://calvin-data304.netlify.app/data/cow-internet2.csv&quot;},</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;width&quot;: 500,</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;height&quot;: 300,</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;mark&quot;: &quot;rect&quot;,</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;encoding&quot;: {</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;x&quot;: {&quot;field&quot;: &quot;year&quot;, &quot;type&quot;: &quot;ordinal&quot;, &quot;title&quot;: null,</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;scale&quot;: {&quot;domain&quot;: [&quot;1994&quot;, &quot;1995&quot;, &quot;1996&quot;, &quot;1997&quot;, &quot;1998&quot;,</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;1999&quot;, &quot;2000&quot;, &quot;2001&quot;, &quot;2002&quot;, &quot;2003&quot;, &quot;2004&quot;, &quot;2005&quot;, &quot;2006&quot;, &quot;2007&quot;, &quot;2008&quot;, &quot;2009&quot;, &quot;2010&quot;, &quot;2011&quot;, &quot;2012&quot;, &quot;2013&quot;, &quot;2014&quot;, &quot;2015&quot;, &quot;2016&quot;]},</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;axis&quot;: {&quot;ticks&quot;: false, &quot;labelAngle&quot;: 0,</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;labelColor&quot;: {</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="st">      &quot;condition&quot;: {&quot;test&quot;: &quot;datum.value == </span><span class="sc">\\\&quot;</span><span class="st">1995</span><span class="sc">\\\&quot;</span><span class="st"> || datum.value == </span><span class="sc">\\\&quot;</span><span class="st">2000</span><span class="sc">\\\&quot;</span><span class="st"> || datum.value == </span><span class="sc">\\\&quot;</span><span class="st">2005</span><span class="sc">\\\&quot;</span><span class="st"> || datum.value == </span><span class="sc">\\\&quot;</span><span class="st">2010</span><span class="sc">\\\&quot;</span><span class="st"> || datum.value == </span><span class="sc">\\\&quot;</span><span class="st">2015</span><span class="sc">\\\&quot;</span><span class="st">&quot;, &quot;value&quot;: &quot;black&quot;}, &quot;value&quot;: null}}}, </span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;y&quot;: {&quot;field&quot;: &quot;country&quot;, &quot;type&quot;: &quot;nominal&quot;, &quot;title&quot;: null,</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;axis&quot;: {&quot;ticks&quot;: false, &quot;orient&quot;: &quot;right&quot;},</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;sort&quot;: {&quot;field&quot;: &quot;users&quot;, &quot;op&quot;: &quot;median&quot;, &quot;order&quot;: &quot;descending&quot;}},</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;color&quot;: {&quot;field&quot;: &quot;users&quot;, &quot;type&quot;: &quot;quantitative&quot;, &quot;title&quot;: &quot;internet users / 100 people&quot;, &quot;legend&quot;: {&quot;orient&quot;: &quot;top&quot;, &quot;values&quot;: [0, 25, 50, 75, 100]},</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;scale&quot;: {&quot;scheme&quot;: &quot;magma&quot;}}</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="st">  } </span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="st">    &#39;</span> <span class="sc">|&gt;</span> <span class="fu">as_vegaspec</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="htmlwidget-89d195d7530700e1a809" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-89d195d7530700e1a809">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+      "url": "https://calvin-data304.netlify.app/data/cow-internet2.csv"
+    },
+    "width": 500,
+    "height": 300,
+    "mark": "rect",
+    "encoding": {
+      "x": {
+        "field": "year",
+        "type": "ordinal",
+        "title": null,
+        "scale": {
+          "domain": [
+            "1994",
+            "1995",
+            "1996",
+            "1997",
+            "1998",
+            "1999",
+            "2000",
+            "2001",
+            "2002",
+            "2003",
+            "2004",
+            "2005",
+            "2006",
+            "2007",
+            "2008",
+            "2009",
+            "2010",
+            "2011",
+            "2012",
+            "2013",
+            "2014",
+            "2015",
+            "2016"
+          ]
+        },
+        "axis": {
+          "ticks": false,
+          "labelAngle": 0,
+          "labelColor": {
+            "condition": {
+              "test": "datum.value == \"1995\" || datum.value == \"2000\" || datum.value == \"2005\" || datum.value == \"2010\" || datum.value == \"2015\"",
+              "value": "black"
+            },
+            "value": null
+          }
+        }
+      },
+      "y": {
+        "field": "country",
+        "type": "nominal",
+        "title": null,
+        "axis": {
+          "ticks": false,
+          "orient": "right"
+        },
+        "sort": {
+          "field": "users",
+          "op": "median",
+          "order": "descending"
+        }
+      },
+      "color": {
+        "field": "users",
+        "type": "quantitative",
+        "title": "internet users / 100 people",
+        "legend": {
+          "orient": "top",
+          "values": [
+            0,
+            25,
+            50,
+            75,
+            100
+          ]
+        },
+        "scale": {
+          "scheme": "magma"
+        }
+      }
+    }
+  },
+  "embed_options": {
+    "renderer": "canvas",
+    "defaultStyle": true
+  }
+},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>I could not figure out how to order this like either Figure 6.14 or 6.15. I tried using a condition like I did for keeping only certain tick labels but it was not working…</p>
+<ol start="3" type="a">
+<li><p>At around 20:10, Healy presents a possible problem with heat maps, what is it?</p>
+<ul>
+<li>With heat maps, it can be hard to tell which squares are the same color shade because of the colors surrounding them. We interpret the relative differences between the colors in different ways depending on where they are placed.</li>
+</ul></li>
+<li><p>But starting at around 44:12, he presents a heat map as a “show pony”. Why isn’t the problem presented earlier an issue here? Is it an issue in the figure you make in part b? Why or why not?</p>
+<ul>
+<li>I don’t think this is as much of an issue here because this graphic of deaths in France involves a lot more data, so much so that you cannot see the individual squares anymore. Also, the color scale used here involves more distinct color hues, so it is easier to tell colors apart from each other. For my figure, I don’t think it is a huge issue because I am using a multi-hue color scale, so the general trends can be seen. However, it is still difficult to tell if two rectangles within the same hue and far from each other on the graphic are the same color or not.</li>
+</ul></li>
 </ol>
 </section>
 <section id="exercise-4" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-4">Exercise 4</h2>
 <ol type="a">
-<li><p>What does Healy have to say about pie charts in his video?</p></li>
-<li><p>How does that compare to what Wilke says in Section 10.1 of Wilke (2019)?</p></li>
-<li><p>What alternatives does Wilke present to pie charts and in what situations does he favor each? (You should be comparing pie charts to two other types of graphics that can be made with the same sort of data.)</p></li>
+<li><p>What does Healy have to say about pie charts in his video?</p>
+<ul>
+<li>Healy says that the reason many professionals do not like pie charts is because it is hard for the human eye to compare angles and relative areas whereas we have no problem comparing lengths in a bar chart.</li>
+</ul></li>
+<li><p>How does that compare to what Wilke says in Section 10.1 of Wilke (2019)?</p>
+<ul>
+<li>Wilke believes that no one type of visualization is consistently superior over the others. He does think that there are times when a pie chart may be the best option with the dataset you have and the specific story you want to tell.</li>
+</ul></li>
+<li><p>What alternatives does Wilke present to pie charts and in what situations does he favor each? (You should be comparing pie charts to two other types of graphics that can be made with the same sort of data.)</p>
+<ul>
+<li><p>Wilke favors pie charts when the goal is to point out simple fractions and you have a very small dataset. They can successfully visualize data as proportions of a whole.</p></li>
+<li><p>Stacked bar charts also can visualize data as proportions of a whole, but are a good alternative to pies when you want to make side-by-side comparisons of multiple conditions or when looking at something over time.</p></li>
+<li><p>Side-by-side bar charts do not portray data as proportions of a whole, but unlike pie charts and stacked bars, they allow you to directly compare individual proportions and work well when the “whole” is broken into many pieces.</p></li>
+</ul></li>
 <li><p>We won’t make many pie charts, but I suppose you should make at least one. To do this in Vega-Lite, use an arc mark. Recreate Figure 10.1 of Wilke (2019).</p></li>
 </ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="st">{</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;$schema&quot;: &quot;https://vega.github.io/schema/vega-lite/v5.json&quot;,</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;data&quot;: {</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;values&quot;: [</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="st">      {&quot;party&quot;: &quot;SPD&quot;, &quot;seats&quot;: 214},</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="st">       {&quot;party&quot;: &quot;FDP&quot;, &quot;seats&quot;: 39},</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="st">      {&quot;party&quot;: &quot;CDU/CSU&quot;, &quot;seats&quot;: 243}</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="st">    ]</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="st">  },</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;width&quot;: 300,</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;height&quot;: 300,</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;encoding&quot;: {</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;theta&quot;: {&quot;field&quot;: &quot;seats&quot;, &quot;type&quot;: &quot;quantitative&quot;, &quot;stack&quot;: true},</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;color&quot;: {&quot;field&quot;: &quot;party&quot;, &quot;type&quot;: &quot;nominal&quot;, &quot;legend&quot;: null}</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="st">  },</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;layer&quot;: [{</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;mark&quot;: {&quot;type&quot;: &quot;arc&quot;, &quot;outerRadius&quot;: 100}</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="st">  }, </span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="st">  {&quot;mark&quot;: {&quot;type&quot;: &quot;text&quot;, &quot;radius&quot;: 130},</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;encoding&quot;: {</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;text&quot;: {&quot;field&quot;: &quot;party&quot;, &quot;type&quot;: &quot;nominal&quot;},</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;color&quot;: {&quot;value&quot;: &quot;black&quot;}</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="st">  }},</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="st">  {&quot;mark&quot;: {&quot;type&quot;: &quot;text&quot;, &quot;radius&quot;: 70},</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;encoding&quot;: {</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;text&quot;: {&quot;field&quot;: &quot;seats&quot;, &quot;type&quot;: &quot;nominal&quot;},</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;color&quot;: {&quot;value&quot;: &quot;white&quot;}</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="st">  }}</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="st">  ]</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="st">    &#39;</span> <span class="sc">|&gt;</span> <span class="fu">as_vegaspec</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="htmlwidget-374c470d89b96c92f026" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-374c470d89b96c92f026">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+      "values": [
+        {
+          "party": "SPD",
+          "seats": 214
+        },
+        {
+          "party": "FDP",
+          "seats": 39
+        },
+        {
+          "party": "CDU/CSU",
+          "seats": 243
+        }
+      ]
+    },
+    "width": 300,
+    "height": 300,
+    "encoding": {
+      "theta": {
+        "field": "seats",
+        "type": "quantitative",
+        "stack": true
+      },
+      "color": {
+        "field": "party",
+        "type": "nominal",
+        "legend": null
+      }
+    },
+    "layer": [
+      {
+        "mark": {
+          "type": "arc",
+          "outerRadius": 100
+        }
+      },
+      {
+        "mark": {
+          "type": "text",
+          "radius": 130
+        },
+        "encoding": {
+          "text": {
+            "field": "party",
+            "type": "nominal"
+          },
+          "color": {
+            "value": "black"
+          }
+        }
+      },
+      {
+        "mark": {
+          "type": "text",
+          "radius": 70
+        },
+        "encoding": {
+          "text": {
+            "field": "seats",
+            "type": "nominal"
+          },
+          "color": {
+            "value": "white"
+          }
+        }
+      }
+    ]
+  },
+  "embed_options": {
+    "renderer": "canvas",
+    "defaultStyle": true
+  }
+},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>I could not figure out how to get the seat number labels to line up properly with the pie wedges.. If I leave them as matching the colors of the wedges, then they line up fine (but you can’t see them because they blend in with the pie). However, when I set them to be white, they are no longer correct.</p>
 <!-- -->
 
 </section>
@@ -5075,129 +5454,260 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class>
-<div class="sourceCode" id="cb4" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;HW 7&quot;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> &quot;Ella Addink&quot;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="an">embed-resources:</span><span class="co"> true</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="an">code-tools:</span><span class="co"> true </span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="in">```{r include = FALSE}</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="in">library(vegawidget)</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 1</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>a.  List some guidelines/advice Wilke gives about creating bar charts.</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>b.  When is it not advised to use a bar chart? Why?</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>c.  What alternatives to bars are mentioned in this chapter?</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>d.  What guidance does Wilke give about whether or not to stack bars vs. dodge them (using an offset in Vega-Lite)?</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>e.  Recreate Figure 6.3</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span></span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="st">{</span></span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;$schema&quot;: &quot;https://vega.github.io/schema/vega-lite/v5.json&quot;,</span></span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;data&quot;: {&quot;url&quot;: &quot;https://calvin-data304.netlify.app/data/cow-movies.csv&quot;},</span></span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;width&quot;: 400, </span></span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;height&quot;: 300,</span></span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;transform&quot;: [</span></span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="st">    {&quot;calculate&quot;: &quot;datum.amount / 1000000&quot;, &quot;as&quot;: &quot;amount_in_millions&quot;}</span></span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="st">  ],</span></span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;mark&quot;: &quot;bar&quot;,</span></span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;encoding&quot;: {</span></span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;x&quot;: {&quot;field&quot;: &quot;amount_in_millions&quot;, &quot;type&quot;: &quot;quantitative&quot;, </span></span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;title&quot;: &quot;weekend gross (million USD)&quot;},</span></span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;y&quot;: {&quot;field&quot;: &quot;title_short&quot;, &quot;type&quot;: &quot;nominal&quot;, &quot;title&quot;: null,</span></span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;sort&quot;: {&quot;field&quot;: &quot;amount&quot;, &quot;order&quot;: &quot;descending&quot;}}</span></span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
-<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span> <span class="sc">|&gt;</span> <span class="fu">as_vegaspec</span>()</span>
-<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>f. Recreate Figure 6.8 and 6.9</span>
-<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span></span>
-<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a><span class="st">{</span></span>
-<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;$schema&quot;: &quot;https://vega.github.io/schema/vega-lite/v5.json&quot;,</span></span>
-<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;data&quot;: {&quot;url&quot;: &quot;https://calvin-data304.netlify.app/data/cow-income.csv&quot;},</span></span>
-<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;width&quot;: 400, </span></span>
-<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;height&quot;: 250,</span></span>
-<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;transform&quot;: [</span></span>
-<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a><span class="st">  {&quot;filter&quot;: {&quot;field&quot;: &quot;race&quot;, &quot;oneOf&quot;: [&quot;asian&quot;, &quot;white&quot;, &quot;hispanic&quot;, </span></span>
-<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;black&quot;]}}</span></span>
-<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a><span class="st">  ],</span></span>
-<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;mark&quot;: &quot;bar&quot;,</span></span>
-<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;encoding&quot;: {</span></span>
-<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;x&quot;: {&quot;field&quot;: &quot;race&quot;, &quot;type&quot;: &quot;nominal&quot;, &quot;title&quot;: null,</span></span>
-<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;sort&quot;: {&quot;field&quot;: &quot;median_income&quot;, &quot;order&quot;: &quot;descending&quot;},</span></span>
-<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;axis&quot;: {&quot;labelAngle&quot;: 0}},</span></span>
-<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;y&quot;: {&quot;field&quot;: &quot;median_income&quot;, &quot;type&quot;: &quot;quantitative&quot;, </span></span>
-<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;title&quot;: &quot;median income (USD)&quot;, &quot;axis&quot;: {&quot;format&quot;: &quot;$,f&quot;}},</span></span>
-<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;color&quot;: {&quot;field&quot;: &quot;age&quot;, &quot;type&quot;: &quot;ordinal&quot;, &quot;title&quot;: &quot;age (yrs)&quot;},</span></span>
-<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;xOffset&quot;: {&quot;field&quot;: &quot;age&quot;}</span></span>
-<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
-<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span> <span class="sc">|&gt;</span> <span class="fu">as_vegaspec</span>()</span>
-<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span></span>
-<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a><span class="st">{</span></span>
-<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;$schema&quot;: &quot;https://vega.github.io/schema/vega-lite/v5.json&quot;,</span></span>
-<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;data&quot;: {&quot;url&quot;: &quot;https://calvin-data304.netlify.app/data/cow-income.csv&quot;},</span></span>
-<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;width&quot;: 300, </span></span>
-<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;height&quot;: 150,</span></span>
-<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;transform&quot;: [</span></span>
-<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a><span class="st">  {&quot;filter&quot;: {&quot;field&quot;: &quot;race&quot;, &quot;oneOf&quot;: [&quot;asian&quot;, &quot;white&quot;, &quot;hispanic&quot;, </span></span>
-<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;black&quot;]}}</span></span>
-<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a><span class="st">  ],</span></span>
-<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;mark&quot;: &quot;bar&quot;,</span></span>
-<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;encoding&quot;: {</span></span>
-<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;x&quot;: {&quot;field&quot;: &quot;age&quot;, &quot;type&quot;: &quot;ordinal&quot;, &quot;title&quot;: &quot;age (years)&quot;,</span></span>
-<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;axis&quot;: {&quot;labelAngle&quot;: 0}},</span></span>
-<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;y&quot;: {&quot;field&quot;: &quot;median_income&quot;, &quot;type&quot;: &quot;quantitative&quot;, </span></span>
-<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;title&quot;: &quot;median income (USD)&quot;, &quot;axis&quot;: {&quot;format&quot;: &quot;$,f&quot;}},</span></span>
-<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;facet&quot;: {&quot;field&quot;: &quot;race&quot;, &quot;type&quot;: &quot;nominal&quot;, &quot;title&quot;: null, &quot;columns&quot;: 2, </span></span>
-<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;sort&quot;: {&quot;op&quot;: &quot;median&quot;, &quot;field&quot;: &quot;median_income&quot;, &quot;order&quot;: &quot;descending&quot;}}</span></span>
-<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
-<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span> <span class="sc">|&gt;</span> <span class="fu">as_vegaspec</span>()</span>
-<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a>g. Recreate Figure 6.11 and explain why Figures 6.12 and 6.13 are labeled “bad”.</span>
-<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 2</span></span>
-<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a>b. List at least three pieces of advice you can glean from this video that might help you design good graphics.</span>
-<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a>c. There are two figures in this video that come from Chapter 1 of Tufte (2001). Did you spot them? Which figures are they?</span>
-<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 3</span></span>
-<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a>a. In Vega-Lite lingo, what makes something be a heat map?</span>
-<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a>b. Recreate Figure 6.14 or 6.15 from Wilke (2019) (your choice). Or get fancy and include an interactive element that let’s you select the year to order by. </span>
-<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a>c. At around 20:10, Healy presents a possible problem with heat maps, what is it?</span>
-<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a>d. But starting at around 44:12, he presents a heat map as a “show pony”. Why isn’t the problem presented earlier an issue here? Is it an issue in the figure you make in part b? Why or why not?</span>
-<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 4</span></span>
-<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a>a. What does Healy have to say about pie charts in his video?</span>
-<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a>b. How does that compare to what Wilke says in Section 10.1 of Wilke (2019)?</span>
-<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a>c. What alternatives does Wilke present to pie charts and in what situations does he favor each? (You should be comparing pie charts to two other types of graphics that can be made with the same sort of data.)</span>
-<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a>d. We won’t make many pie charts, but I suppose you should make at least one. To do this in Vega-Lite, use an arc mark. Recreate Figure 10.1 of Wilke (2019).</span>
+<div class="sourceCode" id="cb7" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;HW 7&quot;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> &quot;Ella Addink&quot;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="an">embed-resources:</span><span class="co"> true</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="an">code-tools:</span><span class="co"> true </span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="in">```{r include = FALSE}</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="in">library(vegawidget)</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 1</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>a.  List some guidelines/advice Wilke gives about creating bar charts.</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>He advises that when labels for bars are too long, swapping to horizontal bars is better than rotating the labels under vertical bars.</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>It makes most sense to order the bars by size, unless the variable is ordinal, then the graphic should retain that ordering.</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>When a plot displays only a small number of different values, it makes sense to add the values to the plot and an explicit y axis is no longer needed (applies to more than just bar charts).</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Bars need to start at zero so bar length is actually proportional to the data values</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>b.  When is it not advised to use a bar chart? Why?</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>When it is impractical to start bars at zero in a bar chart or doing so hinders the graphic from conveying what it was suppose to, bars should not be used.</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>It is also not advised with very large datasets because with too many bars and/or groups of bars, it can get too busy and very confusing.</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>c.  What alternatives to bars are mentioned in this chapter?</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Dot plots are a good alternative when it is impractical for bars to start at zero. With dots, we can limit the axis range to where the data are located.</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Heatmaps are a good alternative for very large datasets which instead map the data values onto colors. They make it harder to determine exact data values, but do very well at highlighting broader trends.</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>d.  What guidance does Wilke give about whether or not to stack bars vs. dodge them (using an offset in Vega-Lite)?</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Wilke says to be careful with grouped bar plots because they show a lot of information at once and can be confusing. It is hard to compare bars of the same color across the groups on x axis, so he actually prefers faceting by one of the variables to reduce the mental effort needed to understand.</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Wilke says that stacking bars is useful when summing individually stacked bars is meaningful in itself or when individual bars represent counts so stacking them gives a meaningful total count.</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>e.  Recreate Figure 6.3</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="st">{</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;$schema&quot;: &quot;https://vega.github.io/schema/vega-lite/v5.json&quot;,</span></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;data&quot;: {&quot;url&quot;: &quot;https://calvin-data304.netlify.app/data/cow-movies.csv&quot;},</span></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;width&quot;: 400, </span></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;height&quot;: 300,</span></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;transform&quot;: [</span></span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a><span class="st">    {&quot;calculate&quot;: &quot;datum.amount / 1000000&quot;, &quot;as&quot;: &quot;amount_in_millions&quot;}</span></span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a><span class="st">  ],</span></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;mark&quot;: &quot;bar&quot;,</span></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;encoding&quot;: {</span></span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;x&quot;: {&quot;field&quot;: &quot;amount_in_millions&quot;, &quot;type&quot;: &quot;quantitative&quot;, </span></span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;title&quot;: &quot;weekend gross (million USD)&quot;},</span></span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;y&quot;: {&quot;field&quot;: &quot;title_short&quot;, &quot;type&quot;: &quot;nominal&quot;, &quot;title&quot;: null,</span></span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;sort&quot;: {&quot;field&quot;: &quot;amount&quot;, &quot;order&quot;: &quot;descending&quot;}}</span></span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span> <span class="sc">|&gt;</span> <span class="fu">as_vegaspec</span>()</span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>f.  Recreate Figure 6.8 and 6.9</span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span></span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a><span class="st">{</span></span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;$schema&quot;: &quot;https://vega.github.io/schema/vega-lite/v5.json&quot;,</span></span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;data&quot;: {&quot;url&quot;: &quot;https://calvin-data304.netlify.app/data/cow-income.csv&quot;},</span></span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;width&quot;: 400, </span></span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;height&quot;: 250,</span></span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;transform&quot;: [</span></span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a><span class="st">  {&quot;filter&quot;: {&quot;field&quot;: &quot;race&quot;, &quot;oneOf&quot;: [&quot;asian&quot;, &quot;white&quot;, &quot;hispanic&quot;, </span></span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;black&quot;]}}</span></span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a><span class="st">  ],</span></span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;mark&quot;: &quot;bar&quot;,</span></span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;encoding&quot;: {</span></span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;x&quot;: {&quot;field&quot;: &quot;race&quot;, &quot;type&quot;: &quot;nominal&quot;, &quot;title&quot;: null,</span></span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;sort&quot;: {&quot;field&quot;: &quot;median_income&quot;, &quot;order&quot;: &quot;descending&quot;},</span></span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;axis&quot;: {&quot;labelAngle&quot;: 0}},</span></span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;y&quot;: {&quot;field&quot;: &quot;median_income&quot;, &quot;type&quot;: &quot;quantitative&quot;, </span></span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;title&quot;: &quot;median income (USD)&quot;, &quot;axis&quot;: {&quot;format&quot;: &quot;$,f&quot;}},</span></span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;color&quot;: {&quot;field&quot;: &quot;age&quot;, &quot;type&quot;: &quot;ordinal&quot;, &quot;title&quot;: &quot;age (yrs)&quot;},</span></span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;xOffset&quot;: {&quot;field&quot;: &quot;age&quot;}</span></span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span> <span class="sc">|&gt;</span> <span class="fu">as_vegaspec</span>()</span>
+<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span></span>
+<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a><span class="st">{</span></span>
+<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;$schema&quot;: &quot;https://vega.github.io/schema/vega-lite/v5.json&quot;,</span></span>
+<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;data&quot;: {&quot;url&quot;: &quot;https://calvin-data304.netlify.app/data/cow-income.csv&quot;},</span></span>
+<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;width&quot;: 300, </span></span>
+<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;height&quot;: 150,</span></span>
+<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;transform&quot;: [</span></span>
+<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a><span class="st">  {&quot;filter&quot;: {&quot;field&quot;: &quot;race&quot;, &quot;oneOf&quot;: [&quot;asian&quot;, &quot;white&quot;, &quot;hispanic&quot;, </span></span>
+<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;black&quot;]}}</span></span>
+<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a><span class="st">  ],</span></span>
+<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;mark&quot;: &quot;bar&quot;,</span></span>
+<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;encoding&quot;: {</span></span>
+<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;x&quot;: {&quot;field&quot;: &quot;age&quot;, &quot;type&quot;: &quot;ordinal&quot;, &quot;title&quot;: &quot;age (years)&quot;,</span></span>
+<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;axis&quot;: {&quot;labelAngle&quot;: 0}},</span></span>
+<span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;y&quot;: {&quot;field&quot;: &quot;median_income&quot;, &quot;type&quot;: &quot;quantitative&quot;, </span></span>
+<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;title&quot;: &quot;median income (USD)&quot;, &quot;axis&quot;: {&quot;format&quot;: &quot;$,f&quot;}},</span></span>
+<span id="cb7-108"><a href="#cb7-108" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;facet&quot;: {&quot;field&quot;: &quot;race&quot;, &quot;type&quot;: &quot;nominal&quot;, &quot;title&quot;: null, &quot;columns&quot;: 2, </span></span>
+<span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;sort&quot;: {&quot;op&quot;: &quot;median&quot;, &quot;field&quot;: &quot;median_income&quot;, &quot;order&quot;: &quot;descending&quot;}}</span></span>
+<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb7-112"><a href="#cb7-112" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span> <span class="sc">|&gt;</span> <span class="fu">as_vegaspec</span>()</span>
+<span id="cb7-113"><a href="#cb7-113" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-115"><a href="#cb7-115" aria-hidden="true" tabindex="-1"></a>g.  Recreate Figure 6.11 and explain why Figures 6.12 and 6.13 are labeled “bad”.</span>
+<span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-120"><a href="#cb7-120" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; </span></span>
+<span id="cb7-121"><a href="#cb7-121" aria-hidden="true" tabindex="-1"></a><span class="st">{</span></span>
+<span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;$schema&quot;: &quot;https://vega.github.io/schema/vega-lite/v5.json&quot;,</span></span>
+<span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;data&quot;: {&quot;url&quot;: &quot;https://calvin-data304.netlify.app/data/cow-gapminder.csv&quot;},</span></span>
+<span id="cb7-124"><a href="#cb7-124" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;width&quot;: 200, </span></span>
+<span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;height&quot;: 400,</span></span>
+<span id="cb7-126"><a href="#cb7-126" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;transform&quot;: [</span></span>
+<span id="cb7-127"><a href="#cb7-127" aria-hidden="true" tabindex="-1"></a><span class="st">   {&quot;filter&quot;: {&quot;field&quot;: &quot;year&quot;, &quot;equal&quot;: &quot;2007&quot;}},</span></span>
+<span id="cb7-128"><a href="#cb7-128" aria-hidden="true" tabindex="-1"></a><span class="st">   {&quot;filter&quot;: {&quot;field&quot;: &quot;continent&quot;, &quot;equal&quot;: &quot;Americas&quot;}}</span></span>
+<span id="cb7-129"><a href="#cb7-129" aria-hidden="true" tabindex="-1"></a><span class="st">  ],</span></span>
+<span id="cb7-130"><a href="#cb7-130" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;mark&quot;: {&quot;type&quot;: &quot;point&quot;, &quot;filled&quot;: true},</span></span>
+<span id="cb7-131"><a href="#cb7-131" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;encoding&quot;: {</span></span>
+<span id="cb7-132"><a href="#cb7-132" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;x&quot;: {&quot;field&quot;: &quot;lifeExp&quot;, &quot;type&quot;: &quot;quantitative&quot;, </span></span>
+<span id="cb7-133"><a href="#cb7-133" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;title&quot;: &quot;life expectancy (years)&quot;, &quot;scale&quot;: {&quot;domain&quot;: [60,81]},</span></span>
+<span id="cb7-134"><a href="#cb7-134" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;axis&quot;: {&quot;grid&quot;: true}},</span></span>
+<span id="cb7-135"><a href="#cb7-135" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;y&quot;: {&quot;field&quot;: &quot;country&quot;, &quot;type&quot;: &quot;nominal&quot;, &quot;title&quot;: null,</span></span>
+<span id="cb7-136"><a href="#cb7-136" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;sort&quot;: {&quot;field&quot;: &quot;lifeExp&quot;, &quot;order&quot;: &quot;descending&quot;}, &quot;axis&quot;: {&quot;grid&quot;: true}},    </span></span>
+<span id="cb7-137"><a href="#cb7-137" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;color&quot;: {&quot;value&quot;: &quot;blue&quot;},</span></span>
+<span id="cb7-138"><a href="#cb7-138" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;fill&quot;: {&quot;value&quot;: &quot;blue&quot;}</span></span>
+<span id="cb7-139"><a href="#cb7-139" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb7-140"><a href="#cb7-140" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb7-141"><a href="#cb7-141" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span> <span class="sc">|&gt;</span> <span class="fu">as_vegaspec</span>()</span>
+<span id="cb7-142"><a href="#cb7-142" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-143"><a href="#cb7-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-144"><a href="#cb7-144" aria-hidden="true" tabindex="-1"></a>Figure 6.12 is considered &quot;bad&quot; because the bars are very long and have similar lengths. Therefore, your eyes are drawn to the middle of the bars instead of the end points. Figure 6.13 is &quot;bad&quot; because the countries are ordered alphabetically which is confusing and does not portray a clear message.</span>
+<span id="cb7-145"><a href="#cb7-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-146"><a href="#cb7-146" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 2</span></span>
+<span id="cb7-147"><a href="#cb7-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-148"><a href="#cb7-148" aria-hidden="true" tabindex="-1"></a>b.  List at least three pieces of advice you can glean from this video that might help you design good graphics.</span>
+<span id="cb7-149"><a href="#cb7-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-150"><a href="#cb7-150" aria-hidden="true" tabindex="-1"></a><span class="in">    -   Humans are good at detecting patterns and we will find them whether they are actually there in the data or not. Therefore, we must be careful about the data we use and the designs we choose.</span></span>
+<span id="cb7-151"><a href="#cb7-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-152"><a href="#cb7-152" aria-hidden="true" tabindex="-1"></a><span class="in">    -   Changing the aspect ratio of graphics can mess with how we perceive the data. With wider graphics, values can appear to change more gradually and with tall skinny graphics, values see to change more rapidly.</span></span>
+<span id="cb7-153"><a href="#cb7-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-154"><a href="#cb7-154" aria-hidden="true" tabindex="-1"></a><span class="in">    -   We need to be aware of who we are sharing our graphics with and what we can expect them to know or not.</span></span>
+<span id="cb7-155"><a href="#cb7-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-156"><a href="#cb7-156" aria-hidden="true" tabindex="-1"></a><span class="in">    -   A well-designed workhorse (basic graph type) can do a whole lot for us.</span></span>
+<span id="cb7-157"><a href="#cb7-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-158"><a href="#cb7-158" aria-hidden="true" tabindex="-1"></a>c.  There are two figures in this video that come from Chapter 1 of Tufte (2001). Did you spot them? Which figures are they?</span>
+<span id="cb7-159"><a href="#cb7-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-160"><a href="#cb7-160" aria-hidden="true" tabindex="-1"></a><span class="in">    -   Charles Minard&#39;s graphic of Napoleon&#39;s retreat from Moscow is in the video. I cannot figure out what the other one is.</span></span>
+<span id="cb7-161"><a href="#cb7-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-162"><a href="#cb7-162" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 3</span></span>
+<span id="cb7-163"><a href="#cb7-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-164"><a href="#cb7-164" aria-hidden="true" tabindex="-1"></a>a.  In Vega-Lite lingo, what makes something be a heat map?</span>
+<span id="cb7-165"><a href="#cb7-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-166"><a href="#cb7-166" aria-hidden="true" tabindex="-1"></a><span class="in">    -   A heat map is where we use a &quot;rect&quot; mark and discrete variables for the x and y channels and where a quantitative variable determines the color for each rectangle.</span></span>
+<span id="cb7-167"><a href="#cb7-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-168"><a href="#cb7-168" aria-hidden="true" tabindex="-1"></a>b.  Recreate Figure 6.14 or 6.15 from Wilke (2019) (your choice). Or get fancy and include an interactive element that let’s you select the year to order by.</span>
+<span id="cb7-169"><a href="#cb7-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-172"><a href="#cb7-172" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-173"><a href="#cb7-173" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;</span></span>
+<span id="cb7-174"><a href="#cb7-174" aria-hidden="true" tabindex="-1"></a><span class="st">{</span></span>
+<span id="cb7-175"><a href="#cb7-175" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;$schema&quot;: &quot;https://vega.github.io/schema/vega-lite/v5.json&quot;,</span></span>
+<span id="cb7-176"><a href="#cb7-176" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;data&quot;: {&quot;url&quot;: &quot;https://calvin-data304.netlify.app/data/cow-internet2.csv&quot;},</span></span>
+<span id="cb7-177"><a href="#cb7-177" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;width&quot;: 500,</span></span>
+<span id="cb7-178"><a href="#cb7-178" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;height&quot;: 300,</span></span>
+<span id="cb7-179"><a href="#cb7-179" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;mark&quot;: &quot;rect&quot;,</span></span>
+<span id="cb7-180"><a href="#cb7-180" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;encoding&quot;: {</span></span>
+<span id="cb7-181"><a href="#cb7-181" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;x&quot;: {&quot;field&quot;: &quot;year&quot;, &quot;type&quot;: &quot;ordinal&quot;, &quot;title&quot;: null,</span></span>
+<span id="cb7-182"><a href="#cb7-182" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;scale&quot;: {&quot;domain&quot;: [&quot;1994&quot;, &quot;1995&quot;, &quot;1996&quot;, &quot;1997&quot;, &quot;1998&quot;,</span></span>
+<span id="cb7-183"><a href="#cb7-183" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;1999&quot;, &quot;2000&quot;, &quot;2001&quot;, &quot;2002&quot;, &quot;2003&quot;, &quot;2004&quot;, &quot;2005&quot;, &quot;2006&quot;, &quot;2007&quot;, &quot;2008&quot;, &quot;2009&quot;, &quot;2010&quot;, &quot;2011&quot;, &quot;2012&quot;, &quot;2013&quot;, &quot;2014&quot;, &quot;2015&quot;, &quot;2016&quot;]},</span></span>
+<span id="cb7-184"><a href="#cb7-184" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;axis&quot;: {&quot;ticks&quot;: false, &quot;labelAngle&quot;: 0,</span></span>
+<span id="cb7-185"><a href="#cb7-185" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;labelColor&quot;: {</span></span>
+<span id="cb7-186"><a href="#cb7-186" aria-hidden="true" tabindex="-1"></a><span class="st">      &quot;condition&quot;: {&quot;test&quot;: &quot;datum.value == </span><span class="sc">\\\&quot;</span><span class="st">1995</span><span class="sc">\\\&quot;</span><span class="st"> || datum.value == </span><span class="sc">\\\&quot;</span><span class="st">2000</span><span class="sc">\\\&quot;</span><span class="st"> || datum.value == </span><span class="sc">\\\&quot;</span><span class="st">2005</span><span class="sc">\\\&quot;</span><span class="st"> || datum.value == </span><span class="sc">\\\&quot;</span><span class="st">2010</span><span class="sc">\\\&quot;</span><span class="st"> || datum.value == </span><span class="sc">\\\&quot;</span><span class="st">2015</span><span class="sc">\\\&quot;</span><span class="st">&quot;, &quot;value&quot;: &quot;black&quot;}, &quot;value&quot;: null}}}, </span></span>
+<span id="cb7-187"><a href="#cb7-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-188"><a href="#cb7-188" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;y&quot;: {&quot;field&quot;: &quot;country&quot;, &quot;type&quot;: &quot;nominal&quot;, &quot;title&quot;: null,</span></span>
+<span id="cb7-189"><a href="#cb7-189" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;axis&quot;: {&quot;ticks&quot;: false, &quot;orient&quot;: &quot;right&quot;},</span></span>
+<span id="cb7-190"><a href="#cb7-190" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;sort&quot;: {&quot;field&quot;: &quot;users&quot;, &quot;op&quot;: &quot;median&quot;, &quot;order&quot;: &quot;descending&quot;}},</span></span>
+<span id="cb7-191"><a href="#cb7-191" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;color&quot;: {&quot;field&quot;: &quot;users&quot;, &quot;type&quot;: &quot;quantitative&quot;, &quot;title&quot;: &quot;internet users / 100 people&quot;, &quot;legend&quot;: {&quot;orient&quot;: &quot;top&quot;, &quot;values&quot;: [0, 25, 50, 75, 100]},</span></span>
+<span id="cb7-192"><a href="#cb7-192" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;scale&quot;: {&quot;scheme&quot;: &quot;magma&quot;}}</span></span>
+<span id="cb7-193"><a href="#cb7-193" aria-hidden="true" tabindex="-1"></a><span class="st">  } </span></span>
+<span id="cb7-194"><a href="#cb7-194" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb7-195"><a href="#cb7-195" aria-hidden="true" tabindex="-1"></a><span class="st">    &#39;</span> <span class="sc">|&gt;</span> <span class="fu">as_vegaspec</span>()</span>
+<span id="cb7-196"><a href="#cb7-196" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-197"><a href="#cb7-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-198"><a href="#cb7-198" aria-hidden="true" tabindex="-1"></a>I could not figure out how to order this like either Figure 6.14 or 6.15. I tried using a condition like I did for keeping only certain tick labels but it was not working...</span>
+<span id="cb7-199"><a href="#cb7-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-200"><a href="#cb7-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-201"><a href="#cb7-201" aria-hidden="true" tabindex="-1"></a>c.  At around 20:10, Healy presents a possible problem with heat maps, what is it?</span>
+<span id="cb7-202"><a href="#cb7-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-203"><a href="#cb7-203" aria-hidden="true" tabindex="-1"></a><span class="in">    -   With heat maps, it can be hard to tell which squares are the same color shade because of the colors surrounding them. We interpret the relative differences between the colors in different ways depending on where they are placed.</span></span>
+<span id="cb7-204"><a href="#cb7-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-205"><a href="#cb7-205" aria-hidden="true" tabindex="-1"></a>d.  But starting at around 44:12, he presents a heat map as a “show pony”. Why isn’t the problem presented earlier an issue here? Is it an issue in the figure you make in part b? Why or why not?</span>
+<span id="cb7-206"><a href="#cb7-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-207"><a href="#cb7-207" aria-hidden="true" tabindex="-1"></a><span class="in">    -   I don&#39;t think this is as much of an issue here because this graphic of deaths in France involves a lot more data, so much so that you cannot see the individual squares anymore. Also, the color scale used here involves more distinct color hues, so it is easier to tell colors apart from each other. For my figure, I don&#39;t think it is a huge issue because I am using a multi-hue color scale, so the general trends can be seen. However, it is still difficult to tell if two rectangles within the same hue and far from each other on the graphic are the same color or not.</span></span>
+<span id="cb7-208"><a href="#cb7-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-209"><a href="#cb7-209" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 4</span></span>
+<span id="cb7-210"><a href="#cb7-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-211"><a href="#cb7-211" aria-hidden="true" tabindex="-1"></a>a.  What does Healy have to say about pie charts in his video?</span>
+<span id="cb7-212"><a href="#cb7-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-213"><a href="#cb7-213" aria-hidden="true" tabindex="-1"></a><span class="in">    -   Healy says that the reason many professionals do not like pie charts is because it is hard for the human eye to compare angles and relative areas whereas we have no problem comparing lengths in a bar chart.</span></span>
+<span id="cb7-214"><a href="#cb7-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-215"><a href="#cb7-215" aria-hidden="true" tabindex="-1"></a>b.  How does that compare to what Wilke says in Section 10.1 of Wilke (2019)?</span>
+<span id="cb7-216"><a href="#cb7-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-217"><a href="#cb7-217" aria-hidden="true" tabindex="-1"></a><span class="in">    -   Wilke believes that no one type of visualization is consistently superior over the others. He does think that there are times when a pie chart may be the best option with the dataset you have and the specific story you want to tell.</span></span>
+<span id="cb7-218"><a href="#cb7-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-219"><a href="#cb7-219" aria-hidden="true" tabindex="-1"></a>c.  What alternatives does Wilke present to pie charts and in what situations does he favor each? (You should be comparing pie charts to two other types of graphics that can be made with the same sort of data.)</span>
+<span id="cb7-220"><a href="#cb7-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-221"><a href="#cb7-221" aria-hidden="true" tabindex="-1"></a><span class="in">    -   Wilke favors pie charts when the goal is to point out simple fractions and you have a very small dataset. They can successfully visualize data as proportions of a whole.</span></span>
+<span id="cb7-222"><a href="#cb7-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-223"><a href="#cb7-223" aria-hidden="true" tabindex="-1"></a><span class="in">    -   Stacked bar charts also can visualize data as proportions of a whole, but are a good alternative to pies when you want to make side-by-side comparisons of multiple conditions or when looking at something over time.</span></span>
+<span id="cb7-224"><a href="#cb7-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-225"><a href="#cb7-225" aria-hidden="true" tabindex="-1"></a><span class="in">    -   Side-by-side bar charts do not portray data as proportions of a whole, but unlike pie charts and stacked bars, they allow you to directly compare individual proportions and work well when the &quot;whole&quot; is broken into many pieces.</span></span>
+<span id="cb7-226"><a href="#cb7-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-227"><a href="#cb7-227" aria-hidden="true" tabindex="-1"></a>d.  We won’t make many pie charts, but I suppose you should make at least one. To do this in Vega-Lite, use an arc mark. Recreate Figure 10.1 of Wilke (2019).</span>
+<span id="cb7-228"><a href="#cb7-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-231"><a href="#cb7-231" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-232"><a href="#cb7-232" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;</span></span>
+<span id="cb7-233"><a href="#cb7-233" aria-hidden="true" tabindex="-1"></a><span class="st">{</span></span>
+<span id="cb7-234"><a href="#cb7-234" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;$schema&quot;: &quot;https://vega.github.io/schema/vega-lite/v5.json&quot;,</span></span>
+<span id="cb7-235"><a href="#cb7-235" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;data&quot;: {</span></span>
+<span id="cb7-236"><a href="#cb7-236" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;values&quot;: [</span></span>
+<span id="cb7-237"><a href="#cb7-237" aria-hidden="true" tabindex="-1"></a><span class="st">      {&quot;party&quot;: &quot;SPD&quot;, &quot;seats&quot;: 214},</span></span>
+<span id="cb7-238"><a href="#cb7-238" aria-hidden="true" tabindex="-1"></a><span class="st">       {&quot;party&quot;: &quot;FDP&quot;, &quot;seats&quot;: 39},</span></span>
+<span id="cb7-239"><a href="#cb7-239" aria-hidden="true" tabindex="-1"></a><span class="st">      {&quot;party&quot;: &quot;CDU/CSU&quot;, &quot;seats&quot;: 243}</span></span>
+<span id="cb7-240"><a href="#cb7-240" aria-hidden="true" tabindex="-1"></a><span class="st">    ]</span></span>
+<span id="cb7-241"><a href="#cb7-241" aria-hidden="true" tabindex="-1"></a><span class="st">  },</span></span>
+<span id="cb7-242"><a href="#cb7-242" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;width&quot;: 300,</span></span>
+<span id="cb7-243"><a href="#cb7-243" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;height&quot;: 300,</span></span>
+<span id="cb7-244"><a href="#cb7-244" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;encoding&quot;: {</span></span>
+<span id="cb7-245"><a href="#cb7-245" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;theta&quot;: {&quot;field&quot;: &quot;seats&quot;, &quot;type&quot;: &quot;quantitative&quot;, &quot;stack&quot;: true},</span></span>
+<span id="cb7-246"><a href="#cb7-246" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;color&quot;: {&quot;field&quot;: &quot;party&quot;, &quot;type&quot;: &quot;nominal&quot;, &quot;legend&quot;: null}</span></span>
+<span id="cb7-247"><a href="#cb7-247" aria-hidden="true" tabindex="-1"></a><span class="st">  },</span></span>
+<span id="cb7-248"><a href="#cb7-248" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;layer&quot;: [{</span></span>
+<span id="cb7-249"><a href="#cb7-249" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;mark&quot;: {&quot;type&quot;: &quot;arc&quot;, &quot;outerRadius&quot;: 100}</span></span>
+<span id="cb7-250"><a href="#cb7-250" aria-hidden="true" tabindex="-1"></a><span class="st">  }, </span></span>
+<span id="cb7-251"><a href="#cb7-251" aria-hidden="true" tabindex="-1"></a><span class="st">  {&quot;mark&quot;: {&quot;type&quot;: &quot;text&quot;, &quot;radius&quot;: 130},</span></span>
+<span id="cb7-252"><a href="#cb7-252" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;encoding&quot;: {</span></span>
+<span id="cb7-253"><a href="#cb7-253" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;text&quot;: {&quot;field&quot;: &quot;party&quot;, &quot;type&quot;: &quot;nominal&quot;},</span></span>
+<span id="cb7-254"><a href="#cb7-254" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;color&quot;: {&quot;value&quot;: &quot;black&quot;}</span></span>
+<span id="cb7-255"><a href="#cb7-255" aria-hidden="true" tabindex="-1"></a><span class="st">  }},</span></span>
+<span id="cb7-256"><a href="#cb7-256" aria-hidden="true" tabindex="-1"></a><span class="st">  {&quot;mark&quot;: {&quot;type&quot;: &quot;text&quot;, &quot;radius&quot;: 70},</span></span>
+<span id="cb7-257"><a href="#cb7-257" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;encoding&quot;: {</span></span>
+<span id="cb7-258"><a href="#cb7-258" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;text&quot;: {&quot;field&quot;: &quot;seats&quot;, &quot;type&quot;: &quot;nominal&quot;},</span></span>
+<span id="cb7-259"><a href="#cb7-259" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;color&quot;: {&quot;value&quot;: &quot;white&quot;}</span></span>
+<span id="cb7-260"><a href="#cb7-260" aria-hidden="true" tabindex="-1"></a><span class="st">  }}</span></span>
+<span id="cb7-261"><a href="#cb7-261" aria-hidden="true" tabindex="-1"></a><span class="st">  ]</span></span>
+<span id="cb7-262"><a href="#cb7-262" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb7-263"><a href="#cb7-263" aria-hidden="true" tabindex="-1"></a><span class="st">    &#39;</span> <span class="sc">|&gt;</span> <span class="fu">as_vegaspec</span>()</span>
+<span id="cb7-264"><a href="#cb7-264" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-265"><a href="#cb7-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-266"><a href="#cb7-266" aria-hidden="true" tabindex="-1"></a>I could not figure out how to get the seat number labels to line up properly with the pie wedges.. If I leave them as matching the colors of the wedges, then they line up fine (but you can&#39;t see them because they blend in with the pie). However, when I set them to be white, they are no longer correct.</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
