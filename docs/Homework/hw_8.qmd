@@ -1,0 +1,48 @@
+---
+title: "HW 8"
+author: "Ella Addink"
+format: html
+embed-resources: true
+code-tools: true 
+---
+
+
+
+```{r}
+library(vegabrite)
+library(dplyr)
+library(jsonlite)
+```
+
+
+## Exercise 1
+
+
+## Exercise 2
+
+a.  
+
+```{r}
+jobs_url <- "https://cdn.jsdelivr.net/npm/vega-datasets@2.8.0/data/jobs.json"
+data <- fromJSON(jobs_url)
+```
+
+```{r}
+vl_chart() |>
+  vl_mark_point() |>
+  vl_encode_x("year:Q") |>
+  vl_encode_y("perc:Q") |>
+  vl_facet_column("sex:N", title = "") |>
+  vl_add_properties(
+    title =  list(
+      text = "Percent of people working various jobs",
+      subtitle = "Each dot represents the one occupation. Hover to see which occupation it is."
+      )) |>
+  vl_add_data_url(jobs_url)
+```
+
+b.
+
+c.  
+
+## Exercise 3
