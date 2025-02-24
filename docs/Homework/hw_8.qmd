@@ -6,25 +6,101 @@ embed-resources: true
 code-tools: true 
 ---
 
-
-
 ```{r}
+#| include: false
+
 library(vegabrite)
 library(dplyr)
+library(tidyr)
 library(jsonlite)
+library(lubridate)
 ```
-
 
 ## Exercise 1
 
+```{r}
+cap_dem_url <- "https://calvin-data304.netlify.app/data/swd-lets-practice-ex-2-3.json"
+cap_dem_data <- fromJSON(cap_dem_url)
+
+long_cap_dem_data <- cap_dem_data |> 
+  pivot_longer(capacity:demand, names_to = "type", values_to = "amount") 
+```
+
+#### Side-by-side bars
+
+```{r}
+vl_chart() |> 
+  vl_mark_bar() |>
+  vl_encode_x("date:O", title = "", timeUnit = "yearmonth") |> 
+  vl_encode_y("amount:Q", title = "") |>
+  vl_encode_color("type:N", title = "", sort = c("demand", "capacity")) |> 
+  vl_encode_xOffset("type:N", sort = c("demand", "capacity")) |>
+  vl_axis_x(labelAngle = 0) |>
+  vl_axis_y(format = "$,r") |> 
+  vl_add_properties(width = 600, height = 200) |>
+  vl_add_data(long_cap_dem_data) 
+```
+
+#### Lines
+
+```{r}
+vl_chart() |> 
+  vl_mark_line() |>
+  vl_encode_x("date:T", title = "") |> 
+  vl_encode_y("amount:Q", title = "") |>
+  vl_encode_color("type:N", title = "", sort = c("demand", "capcaity")) |>
+  vl_axis_x(format = "%b %Y") |>
+  vl_axis_y(format = "$,r") |>
+  vl_add_properties(width = 600, height = 200) |>
+  vl_add_data(long_cap_dem_data)
+```
+
+#### Stacked Bars
+
+```{r}
+vl_chart() |> 
+  vl_mark_bar(width = 40) |>
+  vl_encode_x("date:O", title = "", timeUnit = "yearmonth") |> 
+  vl_encode_y("amount:Q", title = "", stack = FALSE) |>
+  vl_encode_color("type:N", title = "", sort = c("demand", "capacity")) |> 
+  vl_encode_opacity(value = 0.3) |>
+  vl_axis_x(labelAngle = 0) |>
+  vl_axis_y(format = "$,r") |> 
+  vl_add_properties(width = 600, height = 200) |>
+  vl_add_data(long_cap_dem_data)
+```
+
+#### Stacked bars w/ Unmet Demand
+
+```{r}
+vl_chart() |> 
+  vl_calculate("datum.demand - datum.capacity", as = "unmet_demand") |> 
+  vl_fold(c("capacity", "demand", "unmet_demand"), 
+          as = c("type", "amount")) |>
+  vl_filter("datum.type == \'capacity\' || datum.type == \'unmet_demand\'") |>
+  
+  vl_mark_bar(width = 40) |>
+  vl_encode_x("date:O", title = "", timeUnit = "yearmonth") |> 
+  vl_encode_y("amount:Q", title = "") |>
+  vl_encode_color("type:N", title = "") |>
+  vl_encode_order("type:N", title = "", sort = c("capacity", "unmet_demand")) |> 
+  vl_axis_y(format = "$,r") |> 
+  vl_scale_color(scheme = "paired") |>
+  vl_add_properties(width = 600, height = 200) |>
+  vl_add_data(cap_dem_data)
+```
+
+#### Points
+
+#### Unmet Demand Line 
 
 ## Exercise 2
 
-a.  
+#### a.
 
 ```{r}
 jobs_url <- "https://cdn.jsdelivr.net/npm/vega-datasets@2.8.0/data/jobs.json"
-data <- fromJSON(jobs_url)
+jobs_data <- fromJSON(jobs_url)
 ```
 
 ```{r}
@@ -41,8 +117,8 @@ vl_chart() |>
   vl_add_data_url(jobs_url)
 ```
 
-b.
+#### b.
 
-c.  
+#### c.
 
 ## Exercise 3

@@ -4330,39 +4330,729 @@ if (HTMLWidgets.shinyMode) {
 </header>
 
 
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegabrite)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: &#39;dplyr&#39;</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from &#39;package:stats&#39;:
-
-    filter, lag</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from &#39;package:base&#39;:
-
-    intersect, setdiff, setequal, union</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package &#39;jsonlite&#39; was built under R version 4.4.2</code></pre>
-</div>
-</div>
 <section id="exercise-1" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-1">Exercise 1</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>cap_dem_url <span class="ot">&lt;-</span> <span class="st">&quot;https://calvin-data304.netlify.app/data/swd-lets-practice-ex-2-3.json&quot;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>cap_dem_data <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(cap_dem_url)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>long_cap_dem_data <span class="ot">&lt;-</span> cap_dem_data <span class="sc">|&gt;</span> </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(capacity<span class="sc">:</span>demand, <span class="at">names_to =</span> <span class="st">&quot;type&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;amount&quot;</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="side-by-side-bars" class="level4">
+<h4 class="anchored" data-anchor-id="side-by-side-bars">Side-by-side bars</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vl_chart</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_mark_bar</span>() <span class="sc">|&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_x</span>(<span class="st">&quot;date:O&quot;</span>, <span class="at">title =</span> <span class="st">&quot;&quot;</span>, <span class="at">timeUnit =</span> <span class="st">&quot;yearmonth&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_y</span>(<span class="st">&quot;amount:Q&quot;</span>, <span class="at">title =</span> <span class="st">&quot;&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_color</span>(<span class="st">&quot;type:N&quot;</span>, <span class="at">title =</span> <span class="st">&quot;&quot;</span>, <span class="at">sort =</span> <span class="fu">c</span>(<span class="st">&quot;demand&quot;</span>, <span class="st">&quot;capacity&quot;</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_xOffset</span>(<span class="st">&quot;type:N&quot;</span>, <span class="at">sort =</span> <span class="fu">c</span>(<span class="st">&quot;demand&quot;</span>, <span class="st">&quot;capacity&quot;</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_axis_x</span>(<span class="at">labelAngle =</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_axis_y</span>(<span class="at">format =</span> <span class="st">&quot;$,r&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_add_properties</span>(<span class="at">width =</span> <span class="dv">600</span>, <span class="at">height =</span> <span class="dv">200</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_add_data</span>(long_cap_dem_data) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="htmlwidget-cd2f58a0f5b2110c8c36" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cd2f58a0f5b2110c8c36">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "mark": {
+      "type": "bar"
+    },
+    "encoding": {
+      "x": {
+        "field": "date",
+        "timeUnit": "yearmonth",
+        "title": "",
+        "type": "ordinal",
+        "axis": {
+          "labelAngle": 0
+        }
+      },
+      "y": {
+        "field": "amount",
+        "title": "",
+        "type": "quantitative",
+        "axis": {
+          "format": "$,r"
+        }
+      },
+      "color": {
+        "field": "type",
+        "sort": ["demand", "capacity"],
+        "title": "",
+        "type": "nominal"
+      },
+      "xOffset": {
+        "field": "type",
+        "sort": ["demand", "capacity"],
+        "type": "nominal"
+      }
+    },
+    "height": 200,
+    "width": 600,
+    "data": {
+      "values": [
+        {
+          "date": "2019-04",
+          "type": "capacity",
+          "amount": 29263
+        },
+        {
+          "date": "2019-04",
+          "type": "demand",
+          "amount": 46193
+        },
+        {
+          "date": "2019-05",
+          "type": "capacity",
+          "amount": 28037
+        },
+        {
+          "date": "2019-05",
+          "type": "demand",
+          "amount": 49131
+        },
+        {
+          "date": "2019-06",
+          "type": "capacity",
+          "amount": 21596
+        },
+        {
+          "date": "2019-06",
+          "type": "demand",
+          "amount": 50124
+        },
+        {
+          "date": "2019-07",
+          "type": "capacity",
+          "amount": 25895
+        },
+        {
+          "date": "2019-07",
+          "type": "demand",
+          "amount": 48850
+        },
+        {
+          "date": "2019-08",
+          "type": "capacity",
+          "amount": 25813
+        },
+        {
+          "date": "2019-08",
+          "type": "demand",
+          "amount": 47602
+        },
+        {
+          "date": "2019-09",
+          "type": "capacity",
+          "amount": 22427
+        },
+        {
+          "date": "2019-09",
+          "type": "demand",
+          "amount": 43697
+        },
+        {
+          "date": "2019-10",
+          "type": "capacity",
+          "amount": 23605
+        },
+        {
+          "date": "2019-10",
+          "type": "demand",
+          "amount": 41058
+        },
+        {
+          "date": "2019-11",
+          "type": "capacity",
+          "amount": 24263
+        },
+        {
+          "date": "2019-11",
+          "type": "demand",
+          "amount": 37364
+        },
+        {
+          "date": "2019-12",
+          "type": "capacity",
+          "amount": 24243
+        },
+        {
+          "date": "2019-12",
+          "type": "demand",
+          "amount": 34364
+        },
+        {
+          "date": "2020-01",
+          "type": "capacity",
+          "amount": 25533
+        },
+        {
+          "date": "2020-01",
+          "type": "demand",
+          "amount": 34149
+        },
+        {
+          "date": "2020-02",
+          "type": "capacity",
+          "amount": 24467
+        },
+        {
+          "date": "2020-02",
+          "type": "demand",
+          "amount": 25573
+        },
+        {
+          "date": "2020-03",
+          "type": "capacity",
+          "amount": 25194
+        },
+        {
+          "date": "2020-03",
+          "type": "demand",
+          "amount": 25284
+        }
+      ]
+    }
+  },
+  "embed_options": {
+    "renderer": "canvas",
+    "defaultStyle": true
+  }
+},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="lines" class="level4">
+<h4 class="anchored" data-anchor-id="lines">Lines</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vl_chart</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_mark_line</span>() <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_x</span>(<span class="st">&quot;date:T&quot;</span>, <span class="at">title =</span> <span class="st">&quot;&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_y</span>(<span class="st">&quot;amount:Q&quot;</span>, <span class="at">title =</span> <span class="st">&quot;&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_color</span>(<span class="st">&quot;type:N&quot;</span>, <span class="at">title =</span> <span class="st">&quot;&quot;</span>, <span class="at">sort =</span> <span class="fu">c</span>(<span class="st">&quot;demand&quot;</span>, <span class="st">&quot;capcaity&quot;</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_axis_x</span>(<span class="at">format =</span> <span class="st">&quot;%b %Y&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_axis_y</span>(<span class="at">format =</span> <span class="st">&quot;$,r&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_add_properties</span>(<span class="at">width =</span> <span class="dv">600</span>, <span class="at">height =</span> <span class="dv">200</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_add_data</span>(long_cap_dem_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="htmlwidget-2afc6d643afef3b70749" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2afc6d643afef3b70749">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "mark": {
+      "type": "line"
+    },
+    "encoding": {
+      "x": {
+        "field": "date",
+        "title": "",
+        "type": "temporal",
+        "axis": {
+          "format": "%b %Y"
+        }
+      },
+      "y": {
+        "field": "amount",
+        "title": "",
+        "type": "quantitative",
+        "axis": {
+          "format": "$,r"
+        }
+      },
+      "color": {
+        "field": "type",
+        "sort": ["demand", "capcaity"],
+        "title": "",
+        "type": "nominal"
+      }
+    },
+    "height": 200,
+    "width": 600,
+    "data": {
+      "values": [
+        {
+          "date": "2019-04",
+          "type": "capacity",
+          "amount": 29263
+        },
+        {
+          "date": "2019-04",
+          "type": "demand",
+          "amount": 46193
+        },
+        {
+          "date": "2019-05",
+          "type": "capacity",
+          "amount": 28037
+        },
+        {
+          "date": "2019-05",
+          "type": "demand",
+          "amount": 49131
+        },
+        {
+          "date": "2019-06",
+          "type": "capacity",
+          "amount": 21596
+        },
+        {
+          "date": "2019-06",
+          "type": "demand",
+          "amount": 50124
+        },
+        {
+          "date": "2019-07",
+          "type": "capacity",
+          "amount": 25895
+        },
+        {
+          "date": "2019-07",
+          "type": "demand",
+          "amount": 48850
+        },
+        {
+          "date": "2019-08",
+          "type": "capacity",
+          "amount": 25813
+        },
+        {
+          "date": "2019-08",
+          "type": "demand",
+          "amount": 47602
+        },
+        {
+          "date": "2019-09",
+          "type": "capacity",
+          "amount": 22427
+        },
+        {
+          "date": "2019-09",
+          "type": "demand",
+          "amount": 43697
+        },
+        {
+          "date": "2019-10",
+          "type": "capacity",
+          "amount": 23605
+        },
+        {
+          "date": "2019-10",
+          "type": "demand",
+          "amount": 41058
+        },
+        {
+          "date": "2019-11",
+          "type": "capacity",
+          "amount": 24263
+        },
+        {
+          "date": "2019-11",
+          "type": "demand",
+          "amount": 37364
+        },
+        {
+          "date": "2019-12",
+          "type": "capacity",
+          "amount": 24243
+        },
+        {
+          "date": "2019-12",
+          "type": "demand",
+          "amount": 34364
+        },
+        {
+          "date": "2020-01",
+          "type": "capacity",
+          "amount": 25533
+        },
+        {
+          "date": "2020-01",
+          "type": "demand",
+          "amount": 34149
+        },
+        {
+          "date": "2020-02",
+          "type": "capacity",
+          "amount": 24467
+        },
+        {
+          "date": "2020-02",
+          "type": "demand",
+          "amount": 25573
+        },
+        {
+          "date": "2020-03",
+          "type": "capacity",
+          "amount": 25194
+        },
+        {
+          "date": "2020-03",
+          "type": "demand",
+          "amount": 25284
+        }
+      ]
+    }
+  },
+  "embed_options": {
+    "renderer": "canvas",
+    "defaultStyle": true
+  }
+},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="stacked-bars" class="level4">
+<h4 class="anchored" data-anchor-id="stacked-bars">Stacked Bars</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vl_chart</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_mark_bar</span>(<span class="at">width =</span> <span class="dv">40</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_x</span>(<span class="st">&quot;date:O&quot;</span>, <span class="at">title =</span> <span class="st">&quot;&quot;</span>, <span class="at">timeUnit =</span> <span class="st">&quot;yearmonth&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_y</span>(<span class="st">&quot;amount:Q&quot;</span>, <span class="at">title =</span> <span class="st">&quot;&quot;</span>, <span class="at">stack =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_color</span>(<span class="st">&quot;type:N&quot;</span>, <span class="at">title =</span> <span class="st">&quot;&quot;</span>, <span class="at">sort =</span> <span class="fu">c</span>(<span class="st">&quot;demand&quot;</span>, <span class="st">&quot;capacity&quot;</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_opacity</span>(<span class="at">value =</span> <span class="fl">0.3</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_axis_x</span>(<span class="at">labelAngle =</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_axis_y</span>(<span class="at">format =</span> <span class="st">&quot;$,r&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_add_properties</span>(<span class="at">width =</span> <span class="dv">600</span>, <span class="at">height =</span> <span class="dv">200</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_add_data</span>(long_cap_dem_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="htmlwidget-7f9a8e8a4331abfcd680" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7f9a8e8a4331abfcd680">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "mark": {
+      "width": 40,
+      "type": "bar"
+    },
+    "encoding": {
+      "x": {
+        "field": "date",
+        "timeUnit": "yearmonth",
+        "title": "",
+        "type": "ordinal",
+        "axis": {
+          "labelAngle": 0
+        }
+      },
+      "y": {
+        "field": "amount",
+        "stack": false,
+        "title": "",
+        "type": "quantitative",
+        "axis": {
+          "format": "$,r"
+        }
+      },
+      "color": {
+        "field": "type",
+        "sort": ["demand", "capacity"],
+        "title": "",
+        "type": "nominal"
+      },
+      "opacity": {
+        "value": 0.3
+      }
+    },
+    "height": 200,
+    "width": 600,
+    "data": {
+      "values": [
+        {
+          "date": "2019-04",
+          "type": "capacity",
+          "amount": 29263
+        },
+        {
+          "date": "2019-04",
+          "type": "demand",
+          "amount": 46193
+        },
+        {
+          "date": "2019-05",
+          "type": "capacity",
+          "amount": 28037
+        },
+        {
+          "date": "2019-05",
+          "type": "demand",
+          "amount": 49131
+        },
+        {
+          "date": "2019-06",
+          "type": "capacity",
+          "amount": 21596
+        },
+        {
+          "date": "2019-06",
+          "type": "demand",
+          "amount": 50124
+        },
+        {
+          "date": "2019-07",
+          "type": "capacity",
+          "amount": 25895
+        },
+        {
+          "date": "2019-07",
+          "type": "demand",
+          "amount": 48850
+        },
+        {
+          "date": "2019-08",
+          "type": "capacity",
+          "amount": 25813
+        },
+        {
+          "date": "2019-08",
+          "type": "demand",
+          "amount": 47602
+        },
+        {
+          "date": "2019-09",
+          "type": "capacity",
+          "amount": 22427
+        },
+        {
+          "date": "2019-09",
+          "type": "demand",
+          "amount": 43697
+        },
+        {
+          "date": "2019-10",
+          "type": "capacity",
+          "amount": 23605
+        },
+        {
+          "date": "2019-10",
+          "type": "demand",
+          "amount": 41058
+        },
+        {
+          "date": "2019-11",
+          "type": "capacity",
+          "amount": 24263
+        },
+        {
+          "date": "2019-11",
+          "type": "demand",
+          "amount": 37364
+        },
+        {
+          "date": "2019-12",
+          "type": "capacity",
+          "amount": 24243
+        },
+        {
+          "date": "2019-12",
+          "type": "demand",
+          "amount": 34364
+        },
+        {
+          "date": "2020-01",
+          "type": "capacity",
+          "amount": 25533
+        },
+        {
+          "date": "2020-01",
+          "type": "demand",
+          "amount": 34149
+        },
+        {
+          "date": "2020-02",
+          "type": "capacity",
+          "amount": 24467
+        },
+        {
+          "date": "2020-02",
+          "type": "demand",
+          "amount": 25573
+        },
+        {
+          "date": "2020-03",
+          "type": "capacity",
+          "amount": 25194
+        },
+        {
+          "date": "2020-03",
+          "type": "demand",
+          "amount": 25284
+        }
+      ]
+    }
+  },
+  "embed_options": {
+    "renderer": "canvas",
+    "defaultStyle": true
+  }
+},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="stacked-bars-w-unmet-demand" class="level4">
+<h4 class="anchored" data-anchor-id="stacked-bars-w-unmet-demand">Stacked bars w/ Unmet Demand</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vl_chart</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_calculate</span>(<span class="st">&quot;datum.demand - datum.capacity&quot;</span>, <span class="at">as =</span> <span class="st">&quot;unmet_demand&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_fold</span>(<span class="fu">c</span>(<span class="st">&quot;capacity&quot;</span>, <span class="st">&quot;demand&quot;</span>, <span class="st">&quot;unmet_demand&quot;</span>), </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">as =</span> <span class="fu">c</span>(<span class="st">&quot;type&quot;</span>, <span class="st">&quot;amount&quot;</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_filter</span>(<span class="st">&quot;datum.type == </span><span class="sc">\&#39;</span><span class="st">capacity</span><span class="sc">\&#39;</span><span class="st"> || datum.type == </span><span class="sc">\&#39;</span><span class="st">unmet_demand</span><span class="sc">\&#39;</span><span class="st">&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_mark_bar</span>(<span class="at">width =</span> <span class="dv">40</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_x</span>(<span class="st">&quot;date:O&quot;</span>, <span class="at">title =</span> <span class="st">&quot;&quot;</span>, <span class="at">timeUnit =</span> <span class="st">&quot;yearmonth&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_y</span>(<span class="st">&quot;amount:Q&quot;</span>, <span class="at">title =</span> <span class="st">&quot;&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_color</span>(<span class="st">&quot;type:N&quot;</span>, <span class="at">title =</span> <span class="st">&quot;&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_order</span>(<span class="st">&quot;type:N&quot;</span>, <span class="at">title =</span> <span class="st">&quot;&quot;</span>, <span class="at">sort =</span> <span class="fu">c</span>(<span class="st">&quot;capacity&quot;</span>, <span class="st">&quot;unmet_demand&quot;</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_axis_y</span>(<span class="at">format =</span> <span class="st">&quot;$,r&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_scale_color</span>(<span class="at">scheme =</span> <span class="st">&quot;paired&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_add_properties</span>(<span class="at">width =</span> <span class="dv">600</span>, <span class="at">height =</span> <span class="dv">200</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_add_data</span>(cap_dem_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Invalid schema for object passed to or created by
+modify_inner_spec.vegaspec_unit</code></pre>
+</div>
+<div class="cell-output-display">
+<div id="htmlwidget-0f0968fd2ddc99e64e30" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0f0968fd2ddc99e64e30">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "transform": [
+      {
+        "calculate": "datum.demand - datum.capacity",
+        "as": "unmet_demand"
+      },
+      {
+        "fold": ["capacity", "demand", "unmet_demand"],
+        "as": ["type", "amount"]
+      },
+      {
+        "filter": "datum.type == 'capacity' || datum.type == 'unmet_demand'"
+      }
+    ],
+    "mark": {
+      "width": 40,
+      "type": "bar"
+    },
+    "encoding": {
+      "x": {
+        "field": "date",
+        "timeUnit": "yearmonth",
+        "title": "",
+        "type": "ordinal"
+      },
+      "y": {
+        "field": "amount",
+        "title": "",
+        "type": "quantitative",
+        "axis": {
+          "format": "$,r"
+        }
+      },
+      "color": {
+        "field": "type",
+        "title": "",
+        "type": "nominal",
+        "scale": {
+          "scheme": "paired"
+        }
+      },
+      "order": {
+        "field": "type",
+        "sort": ["capacity", "unmet_demand"],
+        "title": "",
+        "type": "nominal"
+      }
+    },
+    "height": 200,
+    "width": 600,
+    "data": {
+      "values": [
+        {
+          "date": "2019-04",
+          "capacity": 29263,
+          "demand": 46193
+        },
+        {
+          "date": "2019-05",
+          "capacity": 28037,
+          "demand": 49131
+        },
+        {
+          "date": "2019-06",
+          "capacity": 21596,
+          "demand": 50124
+        },
+        {
+          "date": "2019-07",
+          "capacity": 25895,
+          "demand": 48850
+        },
+        {
+          "date": "2019-08",
+          "capacity": 25813,
+          "demand": 47602
+        },
+        {
+          "date": "2019-09",
+          "capacity": 22427,
+          "demand": 43697
+        },
+        {
+          "date": "2019-10",
+          "capacity": 23605,
+          "demand": 41058
+        },
+        {
+          "date": "2019-11",
+          "capacity": 24263,
+          "demand": 37364
+        },
+        {
+          "date": "2019-12",
+          "capacity": 24243,
+          "demand": 34364
+        },
+        {
+          "date": "2020-01",
+          "capacity": 25533,
+          "demand": 34149
+        },
+        {
+          "date": "2020-02",
+          "capacity": 24467,
+          "demand": 25573
+        },
+        {
+          "date": "2020-03",
+          "capacity": 25194,
+          "demand": 25284
+        }
+      ]
+    }
+  },
+  "embed_options": {
+    "renderer": "canvas",
+    "defaultStyle": true
+  }
+},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="points" class="level4">
+<h4 class="anchored" data-anchor-id="points">Points</h4>
+</section>
+<section id="unmet-demand-line" class="level4">
+<h4 class="anchored" data-anchor-id="unmet-demand-line">Unmet Demand Line</h4>
+</section>
 </section>
 <section id="exercise-2" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-2">Exercise 2</h2>
-<ol type="a">
-<li></li>
-</ol>
+<section id="a." class="level4">
+<h4 class="anchored" data-anchor-id="a.">a.</h4>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>jobs_url <span class="ot">&lt;-</span> <span class="st">&quot;https://cdn.jsdelivr.net/npm/vega-datasets@2.8.0/data/jobs.json&quot;</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(jobs_url)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>jobs_data <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(jobs_url)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vl_chart</span>() <span class="sc">|&gt;</span></span>
@@ -4377,8 +5067,8 @@ Attaching package: &#39;dplyr&#39;</code></pre>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>      )) <span class="sc">|&gt;</span></span>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_add_data_url</span>(jobs_url)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="htmlwidget-0d3d6002f28f5ba33266" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0d3d6002f28f5ba33266">{"x":{
+<div id="htmlwidget-8317f8c005c9043dcc44" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8317f8c005c9043dcc44">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "spec": {
@@ -4418,10 +5108,13 @@ Attaching package: &#39;dplyr&#39;</code></pre>
 },"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
-<ol start="2" type="a">
-<li></li>
-<li></li>
-</ol>
+</section>
+<section id="b." class="level4">
+<h4 class="anchored" data-anchor-id="b.">b.</h4>
+</section>
+<section id="c." class="level4">
+<h4 class="anchored" data-anchor-id="c.">c.</h4>
+</section>
 </section>
 <section id="exercise-3" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-3">Exercise 3</h2>
@@ -4910,46 +5603,122 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="an">code-tools:</span><span class="co"> true </span></span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegabrite)</span>
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 1</span></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 1</span></span>
 <span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 2</span></span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>a.  </span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>jobs_url <span class="ot">&lt;-</span> <span class="st">&quot;https://cdn.jsdelivr.net/npm/vega-datasets@2.8.0/data/jobs.json&quot;</span></span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(jobs_url)</span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a><span class="fu">vl_chart</span>() <span class="sc">|&gt;</span></span>
-<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_mark_point</span>() <span class="sc">|&gt;</span></span>
-<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_x</span>(<span class="st">&quot;year:Q&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_y</span>(<span class="st">&quot;perc:Q&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_facet_column</span>(<span class="st">&quot;sex:N&quot;</span>, <span class="at">title =</span> <span class="st">&quot;&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_add_properties</span>(</span>
-<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span>  <span class="fu">list</span>(</span>
-<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>      <span class="at">text =</span> <span class="st">&quot;Percent of people working various jobs&quot;</span>,</span>
-<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>      <span class="at">subtitle =</span> <span class="st">&quot;Each dot represents the one occupation. Hover to see which occupation it is.&quot;</span></span>
-<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>      )) <span class="sc">|&gt;</span></span>
-<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_add_data_url</span>(jobs_url)</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>cap_dem_url <span class="ot">&lt;-</span> <span class="st">&quot;https://calvin-data304.netlify.app/data/swd-lets-practice-ex-2-3.json&quot;</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>cap_dem_data <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(cap_dem_url)</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>long_cap_dem_data <span class="ot">&lt;-</span> cap_dem_data <span class="sc">|&gt;</span> </span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(capacity<span class="sc">:</span>demand, <span class="at">names_to =</span> <span class="st">&quot;type&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;amount&quot;</span>) </span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Side-by-side bars</span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a><span class="fu">vl_chart</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_mark_bar</span>() <span class="sc">|&gt;</span></span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_x</span>(<span class="st">&quot;date:O&quot;</span>, <span class="at">title =</span> <span class="st">&quot;&quot;</span>, <span class="at">timeUnit =</span> <span class="st">&quot;yearmonth&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_y</span>(<span class="st">&quot;amount:Q&quot;</span>, <span class="at">title =</span> <span class="st">&quot;&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_color</span>(<span class="st">&quot;type:N&quot;</span>, <span class="at">title =</span> <span class="st">&quot;&quot;</span>, <span class="at">sort =</span> <span class="fu">c</span>(<span class="st">&quot;demand&quot;</span>, <span class="st">&quot;capacity&quot;</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_xOffset</span>(<span class="st">&quot;type:N&quot;</span>, <span class="at">sort =</span> <span class="fu">c</span>(<span class="st">&quot;demand&quot;</span>, <span class="st">&quot;capacity&quot;</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_axis_x</span>(<span class="at">labelAngle =</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_axis_y</span>(<span class="at">format =</span> <span class="st">&quot;$,r&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_add_properties</span>(<span class="at">width =</span> <span class="dv">600</span>, <span class="at">height =</span> <span class="dv">200</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_add_data</span>(long_cap_dem_data) </span>
 <span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>b.</span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Lines</span></span>
 <span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>c.  </span>
-<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 3</span></span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a><span class="fu">vl_chart</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_mark_line</span>() <span class="sc">|&gt;</span></span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_x</span>(<span class="st">&quot;date:T&quot;</span>, <span class="at">title =</span> <span class="st">&quot;&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_y</span>(<span class="st">&quot;amount:Q&quot;</span>, <span class="at">title =</span> <span class="st">&quot;&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_color</span>(<span class="st">&quot;type:N&quot;</span>, <span class="at">title =</span> <span class="st">&quot;&quot;</span>, <span class="at">sort =</span> <span class="fu">c</span>(<span class="st">&quot;demand&quot;</span>, <span class="st">&quot;capcaity&quot;</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_axis_x</span>(<span class="at">format =</span> <span class="st">&quot;%b %Y&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_axis_y</span>(<span class="at">format =</span> <span class="st">&quot;$,r&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_add_properties</span>(<span class="at">width =</span> <span class="dv">600</span>, <span class="at">height =</span> <span class="dv">200</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_add_data</span>(long_cap_dem_data)</span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Stacked Bars</span></span>
+<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a><span class="fu">vl_chart</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_mark_bar</span>(<span class="at">width =</span> <span class="dv">40</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_x</span>(<span class="st">&quot;date:O&quot;</span>, <span class="at">title =</span> <span class="st">&quot;&quot;</span>, <span class="at">timeUnit =</span> <span class="st">&quot;yearmonth&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_y</span>(<span class="st">&quot;amount:Q&quot;</span>, <span class="at">title =</span> <span class="st">&quot;&quot;</span>, <span class="at">stack =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_color</span>(<span class="st">&quot;type:N&quot;</span>, <span class="at">title =</span> <span class="st">&quot;&quot;</span>, <span class="at">sort =</span> <span class="fu">c</span>(<span class="st">&quot;demand&quot;</span>, <span class="st">&quot;capacity&quot;</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_opacity</span>(<span class="at">value =</span> <span class="fl">0.3</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_axis_x</span>(<span class="at">labelAngle =</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-78"><a href="#cb9-78" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_axis_y</span>(<span class="at">format =</span> <span class="st">&quot;$,r&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb9-79"><a href="#cb9-79" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_add_properties</span>(<span class="at">width =</span> <span class="dv">600</span>, <span class="at">height =</span> <span class="dv">200</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-80"><a href="#cb9-80" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_add_data</span>(long_cap_dem_data)</span>
+<span id="cb9-81"><a href="#cb9-81" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-82"><a href="#cb9-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-83"><a href="#cb9-83" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Stacked bars w/ Unmet Demand</span></span>
+<span id="cb9-84"><a href="#cb9-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-87"><a href="#cb9-87" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-88"><a href="#cb9-88" aria-hidden="true" tabindex="-1"></a><span class="fu">vl_chart</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb9-89"><a href="#cb9-89" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_calculate</span>(<span class="st">&quot;datum.demand - datum.capacity&quot;</span>, <span class="at">as =</span> <span class="st">&quot;unmet_demand&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb9-90"><a href="#cb9-90" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_fold</span>(<span class="fu">c</span>(<span class="st">&quot;capacity&quot;</span>, <span class="st">&quot;demand&quot;</span>, <span class="st">&quot;unmet_demand&quot;</span>), </span>
+<span id="cb9-91"><a href="#cb9-91" aria-hidden="true" tabindex="-1"></a>          <span class="at">as =</span> <span class="fu">c</span>(<span class="st">&quot;type&quot;</span>, <span class="st">&quot;amount&quot;</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb9-92"><a href="#cb9-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_filter</span>(<span class="st">&quot;datum.type == </span><span class="sc">\&#39;</span><span class="st">capacity</span><span class="sc">\&#39;</span><span class="st"> || datum.type == </span><span class="sc">\&#39;</span><span class="st">unmet_demand</span><span class="sc">\&#39;</span><span class="st">&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-93"><a href="#cb9-93" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-94"><a href="#cb9-94" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_mark_bar</span>(<span class="at">width =</span> <span class="dv">40</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-95"><a href="#cb9-95" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_x</span>(<span class="st">&quot;date:O&quot;</span>, <span class="at">title =</span> <span class="st">&quot;&quot;</span>, <span class="at">timeUnit =</span> <span class="st">&quot;yearmonth&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb9-96"><a href="#cb9-96" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_y</span>(<span class="st">&quot;amount:Q&quot;</span>, <span class="at">title =</span> <span class="st">&quot;&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-97"><a href="#cb9-97" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_color</span>(<span class="st">&quot;type:N&quot;</span>, <span class="at">title =</span> <span class="st">&quot;&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-98"><a href="#cb9-98" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_order</span>(<span class="st">&quot;type:N&quot;</span>, <span class="at">title =</span> <span class="st">&quot;&quot;</span>, <span class="at">sort =</span> <span class="fu">c</span>(<span class="st">&quot;capacity&quot;</span>, <span class="st">&quot;unmet_demand&quot;</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb9-99"><a href="#cb9-99" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_axis_y</span>(<span class="at">format =</span> <span class="st">&quot;$,r&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb9-100"><a href="#cb9-100" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_scale_color</span>(<span class="at">scheme =</span> <span class="st">&quot;paired&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-101"><a href="#cb9-101" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_add_properties</span>(<span class="at">width =</span> <span class="dv">600</span>, <span class="at">height =</span> <span class="dv">200</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-102"><a href="#cb9-102" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_add_data</span>(cap_dem_data)</span>
+<span id="cb9-103"><a href="#cb9-103" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-104"><a href="#cb9-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-105"><a href="#cb9-105" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Points</span></span>
+<span id="cb9-106"><a href="#cb9-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-107"><a href="#cb9-107" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Unmet Demand Line </span></span>
+<span id="cb9-108"><a href="#cb9-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-109"><a href="#cb9-109" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 2</span></span>
+<span id="cb9-110"><a href="#cb9-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-111"><a href="#cb9-111" aria-hidden="true" tabindex="-1"></a><span class="fu">#### a.</span></span>
+<span id="cb9-112"><a href="#cb9-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-115"><a href="#cb9-115" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-116"><a href="#cb9-116" aria-hidden="true" tabindex="-1"></a>jobs_url <span class="ot">&lt;-</span> <span class="st">&quot;https://cdn.jsdelivr.net/npm/vega-datasets@2.8.0/data/jobs.json&quot;</span></span>
+<span id="cb9-117"><a href="#cb9-117" aria-hidden="true" tabindex="-1"></a>jobs_data <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(jobs_url)</span>
+<span id="cb9-118"><a href="#cb9-118" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-119"><a href="#cb9-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-122"><a href="#cb9-122" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-123"><a href="#cb9-123" aria-hidden="true" tabindex="-1"></a><span class="fu">vl_chart</span>() <span class="sc">|&gt;</span></span>
+<span id="cb9-124"><a href="#cb9-124" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_mark_point</span>() <span class="sc">|&gt;</span></span>
+<span id="cb9-125"><a href="#cb9-125" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_x</span>(<span class="st">&quot;year:Q&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-126"><a href="#cb9-126" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_encode_y</span>(<span class="st">&quot;perc:Q&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-127"><a href="#cb9-127" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_facet_column</span>(<span class="st">&quot;sex:N&quot;</span>, <span class="at">title =</span> <span class="st">&quot;&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-128"><a href="#cb9-128" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_add_properties</span>(</span>
+<span id="cb9-129"><a href="#cb9-129" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span>  <span class="fu">list</span>(</span>
+<span id="cb9-130"><a href="#cb9-130" aria-hidden="true" tabindex="-1"></a>      <span class="at">text =</span> <span class="st">&quot;Percent of people working various jobs&quot;</span>,</span>
+<span id="cb9-131"><a href="#cb9-131" aria-hidden="true" tabindex="-1"></a>      <span class="at">subtitle =</span> <span class="st">&quot;Each dot represents the one occupation. Hover to see which occupation it is.&quot;</span></span>
+<span id="cb9-132"><a href="#cb9-132" aria-hidden="true" tabindex="-1"></a>      )) <span class="sc">|&gt;</span></span>
+<span id="cb9-133"><a href="#cb9-133" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vl_add_data_url</span>(jobs_url)</span>
+<span id="cb9-134"><a href="#cb9-134" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-135"><a href="#cb9-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-136"><a href="#cb9-136" aria-hidden="true" tabindex="-1"></a><span class="fu">#### b.</span></span>
+<span id="cb9-137"><a href="#cb9-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-138"><a href="#cb9-138" aria-hidden="true" tabindex="-1"></a><span class="fu">#### c.</span></span>
+<span id="cb9-139"><a href="#cb9-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-140"><a href="#cb9-140" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 3</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
