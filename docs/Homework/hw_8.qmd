@@ -114,7 +114,7 @@ dem_cap_point_graphic <- vl_layer(lines, points) |>
 dem_cap_point_graphic
 ```
 
-#### Unmet Demand Line 
+#### Unmet Demand Line
 
 ```{r}
 vl_chart() |> 
@@ -132,6 +132,8 @@ vl_chart() |>
 
 #### a.
 
+There was some question as to just what perc meant in this data set. Create a graphic that shows the sum of all the values of perc in each year separated by men and women. Explain what your graphic reveals about what perc means.
+
 ```{r}
 jobs_url <- "https://cdn.jsdelivr.net/npm/vega-datasets@2.8.0/data/jobs.json"
 jobs_data <- fromJSON(jobs_url)
@@ -139,20 +141,122 @@ jobs_data <- fromJSON(jobs_url)
 
 ```{r}
 vl_chart() |>
-  vl_mark_point() |>
-  vl_encode_x("year:Q") |>
-  vl_encode_y("perc:Q") |>
-  vl_facet_column("sex:N", title = "") |>
-  vl_add_properties(
-    title =  list(
-      text = "Percent of people working various jobs",
-      subtitle = "Each dot represents the one occupation. Hover to see which occupation it is."
-      )) |>
-  vl_add_data_url(jobs_url)
+  vl_mark_bar() |>
+  vl_encode_x("year:O", title = "") |>
+  vl_encode_y("perc:Q", aggregate = "sum") |>
+  vl_encode_color("sex:N", title = "") |>
+  vl_scale_color(scheme = "set2") |>
+  vl_axis_x(labelAngle = 0) |>
+  vl_add_properties(width = 600, height = 200) |>
+  vl_add_data_url(jobs_url) 
 ```
+
+My graph reveals that the combined percents of men and woman sum to 100% so, "perc" for each year, sex, and job is relative to the whole population for a given year. 
 
 #### b.
 
+Now modify the graphic from class so that:
+
+-   there are facets for 4 different years (your choice which years),
+
+-   scatterplots that show the percent of men and of women who worked in various jobs during those years, and
+
+-   format=".0%" is used (in the appropriate place) to display perc as a percentages (multiplied by 100 with a % sign appended).
+
+```{r}
+jobs_every_50_yrs <- jobs_data |> 
+  filter(year == 1850 | year == 1900 | year == 1950 | year == 2000)
+```
+
+```{r}
+vl_chart() |>
+  vl_pivot(pivot = "sex", groupby = list("year", "job"), value = "perc") |> 
+  vl_mark_point() |>
+  vl_encode_x("men:Q", title = "Men") |>
+  vl_encode_y("women:Q", title = "Women") |>
+  vl_scale_x(type = "symlog", constant = 0.00001) |>
+  vl_axis_x(format = ".0%") |> 
+  vl_scale_y(type = "symlog", constant = 0.00001) |>
+  vl_axis_y(format = ".0%") |> 
+  vl_facet_column("year:O", title = "") |>
+  vl_encode_tooltip_array(list("job", "year", "men", "women")) |>
+  vl_add_properties(width = 600, height = 200,
+                    title = "Percent of people working various jobs") |>
+  vl_add_data(jobs_every_50_yrs) 
+```
+
 #### c.
 
+Redo part b but show the percentage of men who worked in various jobs and the percentage of women who worked in various jobs. (Part a should have convinced you that this is NOT what `perc` is in the original data set.)
+
+Hint: What data wrangling steps will you need to do to get the information you need? What shape should the data be in when you do this computation?
+
+```{r}
+jobs_by_sex <- jobs_data |> 
+  filter(year == 1850 | year == 1900 | year == 1950 | year == 2000) |> 
+  select(-perc) |>
+  pivot_wider(names_from = "sex", values_from = "count") |> 
+  group_by(year) |> 
+  mutate(total_men = sum(men),
+         total_women = sum(women)) |> 
+  mutate(men_perc = men / total_men,
+         women_perc = women / total_women)
+```
+
+```{r}
+vl_chart() |>
+  vl_mark_point() |>
+  vl_encode_x("men_perc:Q", title = "Men") |>
+  vl_encode_y("women_perc:Q", title = "Women") |>
+  vl_scale_x(type = "symlog", constant = 0.00001) |>
+  vl_axis_x(format = ".0%") |> 
+  vl_scale_y(type = "symlog", constant = 0.00001) |>
+  vl_axis_y(format = ".0%") |> 
+  vl_facet_column("year:O", title = "") |>
+  vl_encode_tooltip_array(list("job", "year", "men_perc", "women_perc")) |>
+  vl_add_properties(width = 600, height = 200,
+                    title = "Percent of men and women working various jobs") |>
+  vl_add_data(jobs_by_sex) 
+```
+
 ## Exercise 3
+
+Create graphic(s) to compare gas prices in US \$ per gallon. Take advantage of the countries/regions/codes data to do things like use 3-letter codes for countries, group them by region, etc.
+
+Do any countries fail to get matched?
+
+I chose to do a left_join and add the crc_data to the gas_price_data (keeping the gas_price_data's country names when there was not a match). This leaves 28 countries unmatched. 
+
+```{r}
+gas_price_data <- 
+  read.csv("https://calvin-data304.netlify.app/data/pump_price_for_gasoline_us_per_liter.csv")
+crc_data <- 
+  read.csv("https://raw.githubusercontent.com/lukes/ISO-3166-Countries-with-Regional-Codes/master/all/all.csv")
+```
+
+```{r}
+joined_gas_country_data <- gas_price_data |>
+  left_join(crc_data, join_by("country" == "name")) |> 
+  rename("alpha3" = "alpha.3") |> 
+  mutate(gas_price_2014_gal = X2014 * 0.264172)  # converting to gallons (only 2014 data)
+```
+
+```{r}
+# Exploring which countries are unmatched
+unmatched_countries <- joined_gas_country_data |> 
+  filter(is.na(alpha3)) 
+```
+
+```{r}
+vl_chart() |> 
+  vl_mark_bar() |>
+  vl_encode_x("alpha3:N", title = "Country code") |> 
+  vl_encode_y("gas_price_2014_gal:Q", title = "Gas Prices (US $ per gallon)") |>
+  vl_axis_y(format = "$,r") |> 
+  vl_facet_row("region:N") |> 
+  vl_add_properties(width = 600, height = 200, 
+                    title = "Worldwise Gas Prices in 2014") |>
+  vl_add_data(joined_gas_country_data)
+```
+
+I just don't have time to finish figuring this one out. 
