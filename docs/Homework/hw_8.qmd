@@ -48,11 +48,11 @@ vl_chart() |>
   vl_mark_line() |>
   vl_encode_x("date:T", title = "") |> 
   vl_encode_y("amount:Q", title = "") |>
-  vl_encode_color("type:N", title = "", sort = c("demand", "capcaity")) |>
+  vl_encode_color("type:N", title = "", sort = c("demand", "capcacity")) |>
   vl_axis_x(format = "%b %Y") |>
-  vl_axis_y(format = "$,r") |>
+  vl_axis_y(format = "$,r") |> 
   vl_add_properties(width = 600, height = 200) |>
-  vl_add_data(long_cap_dem_data)
+  vl_add_data(long_cap_dem_data) 
 ```
 
 #### Stacked Bars
@@ -92,7 +92,41 @@ vl_chart() |>
 
 #### Points
 
+```{r}
+points <- vl_chart() |> 
+  vl_mark_point(filled = TRUE, size = 40) |>
+  vl_encode_x("date:O", title = "", timeUnit = "yearmonth") |> 
+  vl_encode_y("amount:Q", title = "") |>
+  vl_encode_color("type:N", title = "", sort = c("demand", "capacity")) |> 
+  vl_axis_y(format = "$,r")
+
+lines <- vl_chart() |> 
+  vl_mark_line() |> 
+  vl_encode_x("date:O", title = "", timeUnit = "yearmonth") |> 
+  vl_encode_y("amount:Q", title = "") |> 
+  vl_encode_color(value = "grey") |>
+  vl_encode_detail("date:T") |> 
+  vl_axis_y(format = "$,r")
+
+dem_cap_point_graphic <- vl_layer(lines, points) |>
+  vl_add_properties(width = 600, height = 200) |> 
+  vl_add_data(long_cap_dem_data)
+dem_cap_point_graphic
+```
+
 #### Unmet Demand Line 
+
+```{r}
+vl_chart() |> 
+  vl_calculate("datum.demand - datum.capacity", as = "unmet_demand") |>
+  vl_mark_line(point = TRUE) |> 
+  vl_encode_x("date:T", title = "") |> 
+  vl_encode_y("unmet_demand:Q", title = "Unmet Demand") |>
+  vl_axis_x(format = "%b %Y") |>
+  vl_axis_y(format = "$,r") |>
+  vl_add_properties(width = 600, height = 200) |>
+  vl_add_data(cap_dem_data)
+```
 
 ## Exercise 2
 
