@@ -1,0 +1,7 @@
+---
+title: "HW 9"
+author: "Ella Addink"
+format: html
+embed-resources: true
+code-tools: true 
+---
