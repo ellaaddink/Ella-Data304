@@ -5,3 +5,34 @@ format: html
 embed-resources: true
 code-tools: true 
 ---
+
+```{r}
+#| include: false
+
+library(vegabrite)
+library(dplyr)
+library(tidyr)
+library(jsonlite)
+```
+
+## Exercise 1
+
+a.
+
+b. 
+
+c. 
+
+d. 
+
+e. 
+
+## Exercise 2
+
+a. 
+
+b. 
+
+c. 
+
+## Exercise 3
