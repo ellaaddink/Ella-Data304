@@ -1,0 +1,52 @@
+---
+title: "Model Graphing Practice"
+author: "Ella Addink"
+format: html
+embed-resources: true
+code-tools: true 
+---
+
+```{r}
+#| include: false
+
+library(vegabrite)
+library(dplyr)
+library(tidyr)
+library(jsonlite)
+library(lubridate)
+```
+
+```{r}
+my_data <- anscombe
+```
+
+```{r}
+base <- 
+  vl_chart() |> 
+  vl_add_data(my_data)
+  
+points <- function(x, y) {
+  base |> 
+    vl_mark_point() |>
+    vl_encode_x(paste0(x, ":Q")) |> 
+    vl_encode_y(paste0(y, ":Q"))
+}
+
+line <- function(x, y) {
+  base |> 
+    vl_encode_x(paste0(x, ":Q")) |> 
+    vl_encode_y(paste0(y, ":Q")) |> 
+    vl_regression(paste0(x), on = paste0(y)) |> 
+    vl_mark_line()
+}
+
+vl_concat(
+  points("x1", "y1") + line("x1", "y1"),
+  points("x2", "y2") + line("x2", "y2"),
+  points("x3", "y3") + line("x3", "y3"),
+  points("x4", "y4") + line("x4", "y4")
+)
+```
+
+
+
