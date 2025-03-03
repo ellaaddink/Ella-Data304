@@ -1,0 +1,15 @@
+---
+title: "Untitled"
+format: html
+editor: visual
+---
+
+```{r}
+mailing <- jsonlite::fromJSON()
+library(tidyverse)
+
+mailing |> 
+  separate(date, into = c("quarter", "year"), sep = "-") |> # separate into 2 variables 
+  mutate(quarter = parse = parse_number(quarter)) # makes quarter a number
+```
+
