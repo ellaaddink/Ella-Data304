@@ -1,0 +1,18 @@
+---
+title: "HW 9 DataPrep"
+author: "Ella Addink"
+format: html
+embed-resources: true
+code-tools: true 
+---
+
+```{r}
+library(dplyr)
+library(readr)
+
+nyc_flights <- nycflights13::flights |> 
+  select(flight, dep_time, dep_delay)
+
+write_csv(nyc_flights, "nyc_flights_clean.csv")
+```
+
