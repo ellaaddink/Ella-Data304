@@ -13,6 +13,7 @@ library(vegabrite)
 library(dplyr)
 library(tidyr)
 library(jsonlite)
+library(data.table)
 ```
 
 ## Exercise 1
@@ -45,7 +46,31 @@ c.  By now, you should be able to make quite a few of the graphics shown in chap
 
 d.  See if you can figure out how to make at least one of the types of graphic listed in part c.  You may need to do some experimenting or to consult the documentation or example galleries (for Vega-Lite, vegabrite, altiar, Altair, etc.).
 
-e.  Chapters 6 - 16 are orgainized by graphic types. You have already read some of this material. Pick one chapter that is related to your graphic in part d and give some examples of how what you learned in that chapter affected how you created your graphic.
+I decided to make the hex bins, however vega-lite does not seem to have a hexagon shape choice, so I switched to doing 2D bins instead.
+
+```{r}
+nyc_flights <- nycflights13::flights |> 
+  select(flight, dep_time, dep_delay) |> 
+  as.data.table()
+```
+
+```{r}
+vl_chart() |> 
+  vl_mark_rect() |> 
+  vl_encode_x("dep_time:Q", bin = list(maxbins = 60), title = "departure time") |>   
+  vl_encode_y("dep_delay:Q", bin = list(maxbins = 40), title = "departure delay (min)") |> 
+  vl_axis_y(values = list(0, 300, 600, 900)) |> 
+  vl_axis_x(values = list(0, 600, 1200, 1800, 2400), 
+             format = "~r") |> 
+  vl_encode_color("flight:Q", title = "departures",
+                   legend = list(gradientLength = 70), 
+                   scale = list(scheme = "purples")) |> 
+  vl_aggregate_color("count") |> 
+  vl_add_properties(width = 300, height = 200) |> 
+  vl_add_data(nyc_flights)
+```
+
+e.  Chapters 6 - 16 are organized by graphic types. You have already read some of this material. Pick one chapter that is related to your graphic in part d and give some examples of how what you learned in that chapter affected how you created your graphic.
 
 ## Exercise 2
 
