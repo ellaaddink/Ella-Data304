@@ -17,22 +17,44 @@ library(jsonlite)
 
 ## Exercise 1
 
-a.
+a.  Read chapter 4 of of Wilke (2019). List two or three things you learned about using color from this chapter.
 
-b. 
+    -   When using color to distinguish between distinct items or groups that have no order, no one color should stand out relative to the others.
 
-c. 
+    -   Diverging color scales are a good choice when we want to visualize the deviation of data values from a neutral midpoint in one of two directions. Usually we have a very light color as the midpoint and progressively darker colors going both to the right and left.
 
-d. 
+    -   When using accent colors, it is very important that baseline colors do not distract and take the viewer's attention away from the data meant to be accented. A simple way to make sure this is not a problem is to just remove all color from everything except for the data one wishes to highlight.
 
-e. 
+b.  Read chapter 5 of of Wilke (2019). Chapter 5 list a wide range of graphic types. What is the organization scheme Wilke uses to group them? What is the most interesting thing you learned from this chapter?
+
+    -   Wilke groups the graphic types by what the graphics are meant to visualize. Graphics can visualize amounts, distributions, proportions, x-y relationships, geospatial data, and/or uncertainty.
+
+    -   The most interesting thing I learned was when you can use mosaic plots, treemaps, and parallel sets. Treemaps work well when the subdivisions for each group are different from the subdivisions of others, whereas mosaic plots assume the subdivisions are the same across groups. Parallel sets work well if there are more than two grouping variables.
+
+c.  By now, you should be able to make quite a few of the graphics shown in chapter 5. Are there some you would not know how to make (yet) based on what we have done in class? List several that you don’t know how to make – choose the ones you would be most interested in learning how to make and say why you are interested.
+
+    -   I am not sure how to make the: Q-Q Plot, Violin Plot, Strip Chart, Sina Plot, Mosaic Plot, Treemap, Parallel Sets, Density Contours, 2D Bins, Hex Bins, Cartogram Heatmap, or Confidence Strips
+
+    -   I would be most interested in learning how to make:
+
+        -   The violin plot - Violin plots look like an interesting alternative to a boxplot and it would be interesting to learn more ways to show distributions.
+
+        -   The density contours - These look like an intriguing way to show the distribution of data points when you have too many overlapping when simply kept as points.
+
+        -   The hex bins - Similar to the density contours, I can see how 2D bins or hex bins would be helpful when you have too many points on your scatterplot but would like to keep the sense of a scatterplot (rather than switching to a bar graph or something else) and I think the hex shapes are visually appealing.
+
+d.  See if you can figure out how to make at least one of the types of graphic listed in part c.  You may need to do some experimenting or to consult the documentation or example galleries (for Vega-Lite, vegabrite, altiar, Altair, etc.).
+
+e.  Chapters 6 - 16 are orgainized by graphic types. You have already read some of this material. Pick one chapter that is related to your graphic in part d and give some examples of how what you learned in that chapter affected how you created your graphic.
 
 ## Exercise 2
 
-a. 
+a.  Create side-by-side pie charts with good labeling and appropriate choice of colors. Some more things to consider: Should you present using counts or percentages? How will you deal with the nonresponders?
 
-b. 
+b.  Create some other kind of graphic to visualize the same data.
 
-c. 
+c.  Comment on the pros and cons of your two (or more) graphics. Which would you recommend (for what purposes)?
 
 ## Exercise 3
+
+Create a choropleth map of the United States (by county or by state) or the worlds (by country) using any data you like. See the map slides for some possibilities, but feel free to get creative with your data.

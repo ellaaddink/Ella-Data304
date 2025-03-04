@@ -3111,23 +3111,42 @@ vertical-align: -.125em;
 <section id="exercise-1" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-1">Exercise 1</h2>
 <ol type="a">
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
+<li><p>Read chapter 4 of of Wilke (2019). List two or three things you learned about using color from this chapter.</p>
+<ul>
+<li><p>When using color to distinguish between distinct items or groups that have no order, no one color should stand out relative to the others.</p></li>
+<li><p>Diverging color scales are a good choice when we want to visualize the deviation of data values from a neutral midpoint in one of two directions. Usually we have a very light color as the midpoint and progressively darker colors going both to the right and left.</p></li>
+<li><p>When using accent colors, it is very important that baseline colors do not distract and take the viewer’s attention away from the data meant to be accented. A simple way to make sure this is not a problem is to just remove all color from everything except for the data one wishes to highlight.</p></li>
+</ul></li>
+<li><p>Read chapter 5 of of Wilke (2019). Chapter 5 list a wide range of graphic types. What is the organization scheme Wilke uses to group them? What is the most interesting thing you learned from this chapter?</p>
+<ul>
+<li><p>Wilke groups the graphic types by what the graphics are meant to visualize. Graphics can visualize amounts, distributions, proportions, x-y relationships, geospatial data, and/or uncertainty.</p></li>
+<li><p>The most interesting thing I learned was when you can use mosaic plots, treemaps, and parallel sets. Treemaps work well when the subdivisions for each group are different from the subdivisions of others, whereas mosaic plots assume the subdivisions are the same across groups. Parallel sets work well if there are more than two grouping variables.</p></li>
+</ul></li>
+<li><p>By now, you should be able to make quite a few of the graphics shown in chapter 5. Are there some you would not know how to make (yet) based on what we have done in class? List several that you don’t know how to make – choose the ones you would be most interested in learning how to make and say why you are interested.</p>
+<ul>
+<li><p>I am not sure how to make the: Q-Q Plot, Violin Plot, Strip Chart, Sina Plot, Mosaic Plot, Treemap, Parallel Sets, Density Contours, 2D Bins, Hex Bins, Cartogram Heatmap, or Confidence Strips</p></li>
+<li><p>I would be most interested in learning how to make:</p>
+<ul>
+<li><p>The violin plot - Violin plots look like an interesting alternative to a boxplot and it would be interesting to learn more ways to show distributions.</p></li>
+<li><p>The density contours - These look like an intriguing way to show the distribution of data points when you have too many overlapping when simply kept as points.</p></li>
+<li><p>The hex bins - Similar to the density contours, I can see how 2D bins or hex bins would be helpful when you have too many points on your scatterplot but would like to keep the sense of a scatterplot (rather than switching to a bar graph or something else) and I think the hex shapes are visually appealing.</p></li>
+</ul></li>
+</ul></li>
+<li><p>See if you can figure out how to make at least one of the types of graphic listed in part c.  You may need to do some experimenting or to consult the documentation or example galleries (for Vega-Lite, vegabrite, altiar, Altair, etc.).</p></li>
+<li><p>Chapters 6 - 16 are orgainized by graphic types. You have already read some of this material. Pick one chapter that is related to your graphic in part d and give some examples of how what you learned in that chapter affected how you created your graphic.</p></li>
 </ol>
 </section>
 <section id="exercise-2" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-2">Exercise 2</h2>
 <ol type="a">
-<li></li>
-<li></li>
-<li></li>
+<li><p>Create side-by-side pie charts with good labeling and appropriate choice of colors. Some more things to consider: Should you present using counts or percentages? How will you deal with the nonresponders?</p></li>
+<li><p>Create some other kind of graphic to visualize the same data.</p></li>
+<li><p>Comment on the pros and cons of your two (or more) graphics. Which would you recommend (for what purposes)?</p></li>
 </ol>
 </section>
 <section id="exercise-3" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-3">Exercise 3</h2>
+<p>Create a choropleth map of the United States (by county or by state) or the worlds (by country) using any data you like. See the map slides for some possibilities, but feel free to get creative with your data.</p>
 <!-- -->
 
 </section>
@@ -3624,25 +3643,47 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 1</span></span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>a.</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>a.  Read chapter 4 of of Wilke (2019). List two or three things you learned about using color from this chapter.</span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>b. </span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="in">    -   When using color to distinguish between distinct items or groups that have no order, no one color should stand out relative to the others.</span></span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>c. </span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="in">    -   Diverging color scales are a good choice when we want to visualize the deviation of data values from a neutral midpoint in one of two directions. Usually we have a very light color as the midpoint and progressively darker colors going both to the right and left.</span></span>
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>d. </span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="in">    -   When using accent colors, it is very important that baseline colors do not distract and take the viewer&#39;s attention away from the data meant to be accented. A simple way to make sure this is not a problem is to just remove all color from everything except for the data one wishes to highlight.</span></span>
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>e. </span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>b.  Read chapter 5 of of Wilke (2019). Chapter 5 list a wide range of graphic types. What is the organization scheme Wilke uses to group them? What is the most interesting thing you learned from this chapter?</span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 2</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="in">    -   Wilke groups the graphic types by what the graphics are meant to visualize. Graphics can visualize amounts, distributions, proportions, x-y relationships, geospatial data, and/or uncertainty.</span></span>
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>a. </span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="in">    -   The most interesting thing I learned was when you can use mosaic plots, treemaps, and parallel sets. Treemaps work well when the subdivisions for each group are different from the subdivisions of others, whereas mosaic plots assume the subdivisions are the same across groups. Parallel sets work well if there are more than two grouping variables.</span></span>
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>b. </span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>c.  By now, you should be able to make quite a few of the graphics shown in chapter 5. Are there some you would not know how to make (yet) based on what we have done in class? List several that you don’t know how to make – choose the ones you would be most interested in learning how to make and say why you are interested.</span>
 <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>c. </span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="in">    -   I am not sure how to make the: Q-Q Plot, Violin Plot, Strip Chart, Sina Plot, Mosaic Plot, Treemap, Parallel Sets, Density Contours, 2D Bins, Hex Bins, Cartogram Heatmap, or Confidence Strips</span></span>
 <span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 3</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="in">    -   I would be most interested in learning how to make:</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="in">        -   The violin plot - Violin plots look like an interesting alternative to a boxplot and it would be interesting to learn more ways to show distributions.</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="in">        -   The density contours - These look like an intriguing way to show the distribution of data points when you have too many overlapping when simply kept as points.</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="in">        -   The hex bins - Similar to the density contours, I can see how 2D bins or hex bins would be helpful when you have too many points on your scatterplot but would like to keep the sense of a scatterplot (rather than switching to a bar graph or something else) and I think the hex shapes are visually appealing.</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>d.  See if you can figure out how to make at least one of the types of graphic listed in part c.  You may need to do some experimenting or to consult the documentation or example galleries (for Vega-Lite, vegabrite, altiar, Altair, etc.).</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>e.  Chapters 6 - 16 are orgainized by graphic types. You have already read some of this material. Pick one chapter that is related to your graphic in part d and give some examples of how what you learned in that chapter affected how you created your graphic.</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 2</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>a.  Create side-by-side pie charts with good labeling and appropriate choice of colors. Some more things to consider: Should you present using counts or percentages? How will you deal with the nonresponders?</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>b.  Create some other kind of graphic to visualize the same data.</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>c.  Comment on the pros and cons of your two (or more) graphics. Which would you recommend (for what purposes)?</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 3</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>Create a choropleth map of the United States (by county or by state) or the worlds (by country) using any data you like. See the map slides for some possibilities, but feel free to get creative with your data.</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
