@@ -44,14 +44,14 @@ c.  By now, you should be able to make quite a few of the graphics shown in chap
 
         -   The hex bins - Similar to the density contours, I can see how 2D bins or hex bins would be helpful when you have too many points on your scatterplot but would like to keep the sense of a scatterplot (rather than switching to a bar graph or something else) and I think the hex shapes are visually appealing.
 
-d.  See if you can figure out how to make at least one of the types of graphic listed in part c.  You may need to do some experimenting or to consult the documentation or example galleries (for Vega-Lite, vegabrite, altiar, Altair, etc.).
+d.  See if you can figure out how to make at least one of the types of graphic listed in part c. You may need to do some experimenting or to consult the documentation or example galleries (for Vega-Lite, vegabrite, altiar, Altair, etc.).
 
-I decided to make the hex bins, however vega-lite does not seem to have a hexagon shape choice, so I switched to doing 2D bins instead.
+    -   I decided to make the hex bins, however vega-lite does not seem to have a hexagon shape choice, so I switched to doing 2D bins instead. I tried to recreate Wilke's example of a 2D histogram in Ch. 18 (Figure 18.6).
 
 ```{r}
 nyc_flights <- nycflights13::flights |> 
   select(flight, dep_time, dep_delay) |> 
-  as.data.table()
+  as.data.table()  # Trying to make it take less memory because rendering this is rough..
 ```
 
 ```{r}
@@ -70,15 +70,77 @@ vl_chart() |>
   vl_add_data(nyc_flights)
 ```
 
+I cannot seem to figure out how to properly format the times on the x axis. If I could turn the values into datetime values then I could probably figure out the d3 formatting to make the times look normal. However, these data values are just numbers stringed together so I am not sure how to use datetime to extract the hour and minutes.
+
 e.  Chapters 6 - 16 are organized by graphic types. You have already read some of this material. Pick one chapter that is related to your graphic in part d and give some examples of how what you learned in that chapter affected how you created your graphic.
+
+    -   Ch. 18 is related to my graphic, so I read this chapter. Wilke explains in this chapter how 2D histograms can be a helpful alternative to scatterplots when the dataset is very large and many points overlap. Wilke explains that to create them, you must bin the data in two dimensions, subdivide the x-y plane into small rectangles, and then color the rectangles by the count of observations that fall into each one. Therefore, I used a "rect" mark to create rectangles, added bins to both the x and y encoding, and aggregated color so that it represented the count of flights for each departure time and delay amount.
 
 ## Exercise 2
 
 a.  Create side-by-side pie charts with good labeling and appropriate choice of colors. Some more things to consider: Should you present using counts or percentages? How will you deal with the nonresponders?
 
+```{r}
+survey_data <- read.csv(file = "https://calvin-data304.netlify.app/data/likert-survey.csv", 
+                        header = TRUE)
+```
+
+```{r}
+filtered_survey_data <- survey_data |> 
+  filter(response != "no reponse") |> # removed no response counts
+  group_by(year) |>
+  mutate(total = sum(count)) |>
+  ungroup() |>
+  mutate(percent = count / total)
+  #mutate(percent = round(percent, 2))
+```
+
+```{r}
+pies <- vl_chart() |>
+  vl_mark_arc(outerRadius = 100) |> 
+  vl_encode_theta("percent:Q", stack = TRUE) |> 
+  vl_encode_color("response:N", legend = FALSE) |> 
+  vl_encode_order("response:N")
+
+value_labels <- vl_chart() |>
+  vl_mark_text(radius = 70) |> 
+  vl_encode_theta("percent:Q", stack = TRUE) |> 
+  vl_encode_text("percent:Q", format = ".2%") |> 
+  vl_encode_color(value = "white") |> 
+  vl_encode_order("response:N")
+
+group_labels <- vl_chart() |>
+  vl_mark_text(radius = 140) |> 
+  vl_encode_theta("percent:Q", stack = TRUE) |> 
+  vl_encode_text("response:N") |> 
+  vl_encode_color(value = "black") |>
+  vl_encode_order("response:N")
+
+vl_layer(pies, value_labels, group_labels) |> 
+  vl_facet_column("year:N", title = "") |> 
+  vl_add_properties(width = 400, height = 200, title = "Survey Results") |>
+  vl_add_data(filtered_survey_data) 
+```
+
 b.  Create some other kind of graphic to visualize the same data.
 
+```{r}
+vl_chart() |> 
+  vl_mark_bar() |>
+  vl_encode_x("percent:Q", title = "") |> 
+  vl_encode_y("year:N", title = "") |>
+  vl_encode_color("response:N", title = "") |>
+  vl_encode_order("response:N", sort = c("strongly disagree", "disagree", 
+                                         "neither agree nor disagree", "agree", 
+                                         "strongly agree")) |>
+  vl_axis_x(format = ".2%") |> 
+  vl_add_properties(width = 400, height = 200, title = "Survey Results") |>
+  vl_add_data(filtered_survey_data) 
+```
+
 c.  Comment on the pros and cons of your two (or more) graphics. Which would you recommend (for what purposes)?
+
+
 
 ## Exercise 3
 
