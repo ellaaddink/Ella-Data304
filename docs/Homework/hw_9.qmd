@@ -9,6 +9,7 @@ code-tools: true
 ```{r}
 #| include: false
 
+library(altair)
 library(vegabrite)
 library(dplyr)
 library(tidyr)
@@ -140,8 +141,30 @@ vl_chart() |>
 
 c.  Comment on the pros and cons of your two (or more) graphics. Which would you recommend (for what purposes)?
 
-
+    -   Pie chart - I think the pie charts are nice for viewing each response group as part of the whole. I like that each wedge is labeled with its actual value. Some cons with the current design though is that there is not an order to the wedges and it would probably make sense for them to go from strongly disagree to strongly agree. I, however, could not figure out how to get it to order like this. In general, the pie charts are not great for comparing between the two years because it is very hard to perceive angle.
+    -   Stacked bar chart - I think the stacked bars make it easier to compare the two years. However, I struggled to get labels on the bars and without any, it is hard to tell what the actual percentages are for each response group. I also would have preferred to order the response groups from strongly disagree to strongly agree (right to left), but I again could not figure this out.
+    -   Overall, I would recommend the pie chart if you are more interested in comparing the responses within one year and the stacked bars for comparing the response percents between years.
 
 ## Exercise 3
 
 Create a choropleth map of the United States (by county or by state) or the worlds (by country) using any data you like. See the map slides for some possibilities, but feel free to get creative with your data.
+
+```{r}
+us_map_url <- "https://cdn.jsdelivr.net/npm/vega-datasets@2.11.0/data/us-10m.json"
+
+airports <- read.csv("https://cdn.jsdelivr.net/npm/vega-datasets@2.11.0/data/airports.csv")
+```
+
+```{r}
+state_map <-
+  vl_chart() |>
+  vl_add_data(
+    url = us_map_url, 
+    format = list(type = "topojson", feature = "states")) |>
+  vl_add_properties(projection = list(type = "albersUsa")) |>
+  vl_mark_geoshape(fill = "transparent", stroke = "steelblue") 
+
+state_map |> vl_add_properties(width = 500, height = 300)
+```
+
+I was going to try to do Exercise 2 from the slides, that is making a map of the number of airports in each state. I got stuck on how to go about joining the airport data with the state map data. The state data does not seem to have state names or abbreviations, so do we use id? But then what does id match to in the airport data? Once joined, an aggregate would probably be involved to sum the airports in each state.
