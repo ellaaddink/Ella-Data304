@@ -1,0 +1,17 @@
+---
+title: "Final Portfolio"
+author: "Ella Addink"
+format: html
+embed-resources: true
+code-tools: true 
+---
+
+```{r}
+#| include: false
+
+library(altair)
+library(vegabrite)
+library(dplyr)
+library(tidyr)
+library(jsonlite)
+```
