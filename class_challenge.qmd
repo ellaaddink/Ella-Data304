@@ -1,15 +1,34 @@
 ---
-title: "Untitled"
+title: "Response vs. Completion Rates Challenge"
 format: html
 editor: visual
 ---
 
 ```{r}
-mailing <- jsonlite::fromJSON()
 library(tidyverse)
+library(lubridate)
+library(vegabrite)
 
-mailing |> 
+mailing <- 
+  jsonlite::fromJSON("../data/swd-lets-practice-ex-2-13.json") |>
+  as_tibble()
+
+mailing_wide <- mailing |> 
   separate(date, into = c("quarter", "year"), sep = "-") |> # separate into 2 variables 
-  mutate(quarter = parse = parse_number(quarter)) # makes quarter a number
-```
+  mutate(quarter = parse_number(quarter),
+         year = parse_number(year), 
+         date_str = paste0(year, "-", 3* quarter - 2, "-01"), # forming the date
+         date = ymd(date_str), # coverts it into datetime object
+         `Net Completion Rate` = `Response Rate` * `Completion Rate`
+         )
+mailing_long <- mailing_wide |>
+  pivot_longer(matches("Rate"), names_to = "rate type", values_to = "rate") |>
+  filter('rate type' != "Completion Rate")
 
+mailing_long |> 
+  vl_chart() |> 
+  vl_mark_line() |> 
+  vl_encode_y("date:T") |> 
+  vl_encode_x("rate:Q") |> 
+  vl_encode_color("rate type:N") 
+```
