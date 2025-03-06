@@ -23,4 +23,4 @@ format:
 
 ## Final Portfolio
 
-[Final Portfolio](/final_portfolio.html)
+[Final Portfolio](final_portfolio.html)
