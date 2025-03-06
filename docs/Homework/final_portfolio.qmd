@@ -9,33 +9,93 @@ code-tools: true
 ```{r}
 #| include: false
 
-library(altair)
 library(vegabrite)
 library(dplyr)
 library(tidyr)
 library(jsonlite)
+library(readxl)
+library(lubridate)
 ```
 
-## Exercise 1 
+## Exercise 1 - Twin Genetics
 
+a.  An example with something I like
 
+b.  An example with something I don't like
 
-## Exercise 2 
+c.  My graphics + stories
 
+```{r}
+genetics_wide <- read.csv("https://calvin-data304.netlify.app/data/twins-genetics-wide.csv")
+genetics_long <- read.csv("https://calvin-data304.netlify.app/data/twins-genetics-long.csv")
+```
 
+Comparing twins
 
-## Exercise 3 
+```{r}
+vl_chart() |> 
+  vl_mark_bar() |> 
+  vl_encode_x("kit:O") |>
+  vl_scale_x(paddingInner = 0) |> 
+  vl_encode_y("genetic.share:Q") |>
+  vl_encode_color("region:N") |> 
+  vl_encode_xOffset("twin:O") |> 
+  vl_facet("pair:O", columns = 2, title = "") |>
+  vl_add_data(genetics_long)
+```
 
+Comparing DNA kits
 
+```{r}
+vl_chart() |> 
+  vl_mark_bar() |> 
+  vl_encode_x("pair:O") |>
+  vl_scale_x(paddingInner = 0) |> 
+  vl_encode_y("genetic.share:Q") |>
+  vl_encode_color("region:N") |> 
+  vl_encode_xOffset("twin:O") |> 
+  vl_facet("kit:N", columns = 1) |>
+  vl_add_data(genetics_long)
+```
 
-## Exercise 4 
+## Exercise 2 - Data & Graphic Challenge
 
+## Exercise 3 - Tanzania Graphic
 
+[Tanzania data](Tanzania_data.xlsx)
 
-## Exercise 5 
+```{r}
+tanzania <- read_excel(path = 'Tanzania_data.xlsx')
+```
 
+```{r}
+vl_chart() |> 
+  vl_mark_point() |> 
+  vl_add_data(tanzania)
+```
 
+## Exercise 4 - Masterpiece
 
-## Exercise 6 
+## Exercise 5 - Using features
 
+Where I used these features:
 
+-   An encoding channel other than x or y:
+
+-   Layers:
+
+-   Facets:
+
+-   Concatenation or repeat:
+
+-   Non-default settings for a channel’s scale or guide:
+
+-   Tooltips:
+
+-   Another kind of interaction (panning/zooming, brushing, sliders, etc.):
+
+## Exercise 6 - Learning
+
+a.  Name 2 or 3 examples of where I used a feature we did not discuss in class (a new kind of mark, transform, a way to customize something, a way to use an interaction, etc)
+
+b.  Name 2 or 3 examples of where I followed the advice of Wilke or Knaflic
