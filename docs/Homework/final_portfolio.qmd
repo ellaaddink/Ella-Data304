@@ -20,11 +20,15 @@ library(lubridate)
 
 ## Exercise 1 - Twin Genetics
 
-a.  An example with something I like
+a\. An examples with something I like
 
-b.  An example with something I don't like
+I like Daniel's use of points for his graphic for comparing twins. I think the points make the whole graphic easier to look at and a person can perceive where there are differences between twins. Although he does not differentiate between kits, I like how there are not facets or a selector and I can look at the data all at once.
 
-c.  My graphics + stories
+b\. An example with something I don't like
+
+I don't love Sucry's graphic for comparing kits because genetic share seems to be treated as an ordinal categorical variable and I am not sure of his reasoning for doing so. I do not think it does the best at comparing kits because I am not sure what the graphic would look like if the kits all reported the same DNA proportions.
+
+c-d. Graphics and stories
 
 ```{r}
 #| code-fold: true 
@@ -47,6 +51,8 @@ vl_chart() |>
   vl_add_data(genetics_long)
 ```
 
+Story..
+
 Comparing DNA kits
 
 ```{r}
@@ -62,11 +68,13 @@ vl_chart() |>
   vl_add_data(genetics_long)
 ```
 
+Story...
+
 ## Exercise 2 - Data & Graphic Challenge
 
 ## Exercise 3 - Tanzania Graphic
 
-[Tanzania data](Tanzania_data.xlsx)
+My data: [Tanzania_data](Tanzania_data.xlsx)
 
 ```{r}
 #| code-fold: true 
@@ -149,6 +157,6 @@ Where I used these features:
 
 ## Exercise 6 - Learning
 
-a.  Name 2 or 3 examples of where I used a feature we did not discuss in class (a new kind of mark, transform, a way to customize something, a way to use an interaction, etc)
+a\. Name 2 or 3 examples of where I used a feature we did not discuss in class (a new kind of mark, transform, a way to customize something, a way to use an interaction, etc)
 
-b.  Name 2 or 3 examples of where I followed the advice of Wilke or Knaflic
+b\. Name 2 or 3 examples of where I followed the advice of Wilke or Knaflic
