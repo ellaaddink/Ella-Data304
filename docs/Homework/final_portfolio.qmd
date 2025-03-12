@@ -72,9 +72,29 @@ Story...
 
 ## Exercise 2 - Data & Graphic Challenge
 
+I chose challenge #2, re-making the customer touchpoints graphic.
+
+![](bad_touchpoint_graphic.png){width="50%"}
+
+Issues I noticed with this graphic:
+
+-   Both the x and y axes could be improved. It is not easy to see which bar goes with each of the date labels. The labels also do not seem to be correct as 2018-08 comes after 2019-03. On the y axis, the number of significant digits is not consistent.
+
+-   The emphasis on the total touchpoints as seen in the title and labels on the graphic is not the focus of the graphic itself and can not really be seen with the data given. We have information on the total number of touchpoints per customer each month, but not the total number of customers, so we cannot actually calculate/graph the total touchpoints. Therefore, with this data, the total touchpoints should probably not be the main message and if included, should probably just be in the caption or subtitle.
+
+-   The title and touchpoint labels are also currently quite large and distracting.
+
+-   Stacked bars are probably not the best option because it is hard to compare the amounts of different types of touchpoints within one month (although maybe this is not as important to the story). It is also hard to see the trends for chat and email touchpoints because they don't have a common baseline.
+
+```{r}
+#| code-fold: true 
+touchpoints <- read.csv("https://calvin-data304.netlify.app/data/swd-lets-practice-ex-5-03.csv") |> 
+  mutate(Total = Phone.Touchpoints + Chat.Touchpoints + Email.Touchpoints)
+```
+
 ## Exercise 3 - Tanzania Graphic
 
-My data: [Tanzania_data](Tanzania_data.xlsx)
+My data: [Tanzania data](Tanzania_data.xlsx)
 
 ```{r}
 #| code-fold: true 
@@ -134,6 +154,8 @@ vl_layer(fam_plan_line, contraception_line,
   vl_add_properties(width = 400, height = 300, 
                     title = "Contraception Use and Family Planning Increase in Tanzania")
 ```
+
+Over the last few decades, the use of modern contraception in Tanzania has steadily increased with the largest increase occuring after 2010. The unmet need for family planning has decreased slightly since 1992 by about 5% total. Potentially associated with both of these is the decrease in the total fertility rate for all women ages 15-49.
 
 ## Exercise 4 - Masterpiece
 
