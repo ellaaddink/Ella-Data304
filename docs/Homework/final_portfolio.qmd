@@ -43,16 +43,17 @@ genetics_long <- read.csv("https://calvin-data304.netlify.app/data/twins-genetic
 Comparing twins
 
 ```{r}
-#| code-fold: true 
-vl_chart() |> 
-  vl_mark_bar() |> 
-  vl_encode_x("kit:O") |>
-  vl_scale_x(paddingInner = 0) |> 
+#| code-fold: true
+vl_chart() |>
+  vl_mark_line() |>
+  vl_encode_x("id:N") |>
   vl_encode_y("genetic.share:Q") |>
-  vl_encode_color("region:N") |> 
-  vl_encode_xOffset("twin:O") |> 
-  vl_facet("pair:O", columns = 2, title = "") |>
-  vl_add_data(genetics_long)
+  vl_encode_color("pair:N") |>
+  vl_encode_detail("pair:N") |>
+  vl_encode_row("kit:N") |>
+  vl_encode_column("region:N") |>
+  vl_add_data(genetics_long) |>
+  vl_add_properties(height = 150, width = 200)
 ```
 
 Story..
@@ -60,27 +61,16 @@ Story..
 Comparing DNA kits
 
 ```{r}
-#| code-fold: true 
-vl_chart() |> 
-  vl_mark_bar() |> 
-  vl_encode_x("pair:O") |>
-  vl_scale_x(paddingInner = 0) |> 
-  vl_encode_y("genetic.share:Q") |>
-  vl_encode_color("region:N") |> 
-  vl_encode_xOffset("twin:O") |> 
-  vl_facet("kit:N", columns = 1) |>
-  vl_add_data(genetics_long)
-```
-
-```{r}
+#| code-fold: true
 vl_chart() |>
   vl_mark_line() |>
-  vl_encode_x("kit:N") |>
-  vl_encode_y("genetic.share:Q") |>
+  vl_encode_x("kit:N", title = "Kit") |>
+  vl_encode_y("genetic.share:Q", title = "Genetic Share") |>
   vl_encode_color("twin:N") |>
   vl_scale_color(scheme = "paired") |>
+  vl_legend_color(title = "Twin") |>
   vl_encode_detail("twin:N") |>
-  vl_encode_facet("region:N", columns = 3) |> 
+  vl_encode_facet("region:N", columns = 3, title = "Region") |> 
   vl_add_properties(width = 200, height = 120) |> 
   vl_add_data(genetics_long)
 ```
@@ -290,17 +280,17 @@ vl_layer(state_map, park_points) |>
 
 Where I used these features:
 
--   An encoding channel other than x or y:
+-   An encoding channel other than x or y: Masterpiece
 
--   Layers:
+-   Layers: Tanzania Graphic
 
--   Facets:
+-   Facets: Comparing DNA Kits Graphic
 
 -   Concatenation or repeat:
 
--   Non-default settings for a channel’s scale or guide:
+-   Non-default settings for a channel’s scale or guide: Tanzania Graphic
 
--   Tooltips:
+-   Tooltips: Tanzania Graphic
 
 -   Another kind of interaction (panning/zooming, brushing, sliders, etc.):
 
