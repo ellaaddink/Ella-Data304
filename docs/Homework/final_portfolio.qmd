@@ -46,17 +46,18 @@ Comparing twins
 #| code-fold: true
 vl_chart() |>
   vl_mark_line() |>
-  vl_encode_x("id:N") |>
-  vl_encode_y("genetic.share:Q") |>
+  vl_encode_x("id:N", title = "Twin") |>
+  vl_encode_y("genetic.share:Q", title = "Genetic Share") |>
   vl_encode_color("pair:N") |>
-  vl_encode_detail("pair:N") |>
-  vl_encode_row("kit:N") |>
-  vl_encode_column("region:N") |>
+  vl_legend_color(title = "Pair") |>
+  vl_encode_row("kit:N", title = "Kit") |>
+  vl_encode_column("region:N", title = "Region") |>
   vl_add_data(genetics_long) |>
-  vl_add_properties(height = 150, width = 200)
+  vl_add_properties(height = 150, width = 80,
+                    title = "Distinct Differences in Twin Genetic Shares for Europe and West Africa")
 ```
 
-Story..
+One would expect identical twins to receive the same results from DNA kits, but often times this is not the case. For the 6 pairs of twins included here, we can see distinct differences in some of their measured genetic shares for the NW Europe, SE Europe, and West Africa regions. The largest difference between a pair of twins was for the SE Europe genetic share using the MyHeritage DNA kit with a difference of almost 0.1.  
 
 Comparing DNA kits
 
@@ -66,6 +67,7 @@ vl_chart() |>
   vl_mark_line() |>
   vl_encode_x("kit:N", title = "Kit") |>
   vl_encode_y("genetic.share:Q", title = "Genetic Share") |>
+  vl_axis_y(tickCount = 6) |>
   vl_encode_color("twin:N") |>
   vl_scale_color(scheme = "paired") |>
   vl_legend_color(title = "Twin") |>
@@ -74,8 +76,6 @@ vl_chart() |>
   vl_add_properties(width = 200, height = 120) |> 
   vl_add_data(genetics_long)
 ```
-
-Story...
 
 ## Exercise 2 - Data & Graphic Challenge
 
@@ -284,7 +284,7 @@ Where I used these features:
 
 -   Layers: Tanzania Graphic
 
--   Facets: Comparing DNA Kits Graphic
+-   Facets: Genetics Graphics
 
 -   Concatenation or repeat:
 
