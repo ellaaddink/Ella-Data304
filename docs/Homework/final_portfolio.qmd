@@ -16,6 +16,10 @@ library(tidyr)
 library(jsonlite)
 library(readxl)
 library(lubridate)
+library(mapview)
+library(sf)
+library(geojson)
+library(geojsonsf)
 ```
 
 ## Exercise 1 - Twin Genetics
@@ -68,6 +72,19 @@ vl_chart() |>
   vl_add_data(genetics_long)
 ```
 
+```{r}
+vl_chart() |>
+  vl_mark_line() |>
+  vl_encode_x("kit:N") |>
+  vl_encode_y("genetic.share:Q") |>
+  vl_encode_color("twin:N") |>
+  vl_scale_color(scheme = "paired") |>
+  vl_encode_detail("twin:N") |>
+  vl_encode_facet("region:N", columns = 3) |> 
+  vl_add_properties(width = 200, height = 120) |> 
+  vl_add_data(genetics_long)
+```
+
 Story...
 
 ## Exercise 2 - Data & Graphic Challenge
@@ -88,8 +105,42 @@ Issues I noticed with this graphic:
 
 ```{r}
 #| code-fold: true 
-touchpoints <- read.csv("https://calvin-data304.netlify.app/data/swd-lets-practice-ex-5-03.csv") |> 
-  mutate(Total = Phone.Touchpoints + Chat.Touchpoints + Email.Touchpoints)
+touchpoints_wide <- read.csv("https://calvin-data304.netlify.app/data/swd-lets-practice-ex-5-03.csv") |> 
+  mutate(Total = Phone.Touchpoints + Chat.Touchpoints + Email.Touchpoints,
+         Complete_Date_str = paste0(Date, "-01"),
+         Complete_Date = ymd(Complete_Date_str)) |> 
+  rename(Phone = Phone.Touchpoints,
+         Chat = Chat.Touchpoints,
+         Email = Email.Touchpoints)
+
+touchpoints_long <- touchpoints_wide |> 
+  pivot_longer(Phone:Total, names_to = "Type", values_to = "Touchpoints")
+
+touchpoints_label_data <- touchpoints_long |> 
+  filter(Date == "2020-01")
+```
+
+```{r}
+#| code-fold: true
+base <- vl_chart() |>
+  vl_encode_x("Complete_Date:T", title = "") |>
+  vl_axis_x(format = "%b %Y") |>
+  vl_encode_y("Touchpoints:Q", title = "Touchpoints per Customer") |>
+  vl_encode_color("Type:N", legend = FALSE) |>
+  vl_scale_color(domain = c("Chat", "Phone", "Email", "Total"),
+                 range = c("#1b9e77", "#7570b3", "#d95f02", "black")) 
+  
+lines <- base |> 
+  vl_mark_line() |>
+  vl_add_data(touchpoints_long)
+
+labels <- base |> 
+  vl_mark_text(dx = 18) |> 
+  vl_encode_text("Type:N") |>
+  vl_add_data(touchpoints_label_data)
+
+vl_layer(lines, labels) |> 
+  vl_add_properties(width = 400, height = 200)
 ```
 
 ## Exercise 3 - Tanzania Graphic
@@ -151,13 +202,89 @@ vl_layer(fam_plan_line, contraception_line,
          fam_plan_points, contraception_points, 
          contraception_label, fam_plan_label) |> 
   vl_add_data(tanzania) |>
+  vl_encode_tooltip_array(c("date:T", "contraception_use:Q", "fam_plan_unmet:Q", "fertility_rate:Q")) |>
   vl_add_properties(width = 400, height = 300, 
                     title = "Contraception Use and Family Planning Increase in Tanzania")
 ```
 
-Over the last few decades, the use of modern contraception in Tanzania has steadily increased with the largest increase occuring after 2010. The unmet need for family planning has decreased slightly since 1992 by about 5% total. Potentially associated with both of these is the decrease in the total fertility rate for all women ages 15-49.
+Over the last few decades, the use of modern contraception in Tanzania has steadily increased with the largest increase occurring after 2010. The unmet need for family planning has decreased slightly since 1992 by about 5% total. Potentially associated with both of these is the decrease in the total fertility rate for all women ages 15-49. 
 
 ## Exercise 4 - Masterpiece
+
+```{r}
+#| code-fold: true 
+# Loading in data
+us_map_url <- "https://cdn.jsdelivr.net/npm/vega-datasets@2.11.0/data/us-10m.json"
+park_visits <- read_excel("National_Park_Data.xlsx",
+                          skip = 2)
+park_shp <- read_sf("nps_boundary_centroids.shp")
+# Then I used st_write(park_shp, "parks.csv", layer_options = "GEOMETRY=AS_XY") in the console to create parks.csv
+parks <- read.csv("parks.csv")
+```
+
+```{r}
+#| code-fold: true 
+# Cleaning and joining data
+graphic_data <- parks |> 
+  left_join(park_visits, join_by(UNIT_CODE == `Unit Code`),
+            relationship = "many-to-many") |> 
+  filter(!is.na(`Recreation Visits`)) |>
+  select(X, Y, UNIT_CODE, UNIT_NAME, STATE, REGION, UNIT_TYPE, Year, `Recreation Visits`) |> 
+  filter(STATE != "AS" & STATE != "DC" & STATE != "GU" & STATE != "MP" & STATE != "PR" & 
+         STATE != "TT" & STATE != "VI") |> 
+  rename(LAT = Y,
+         LONG = X,
+         Visits = `Recreation Visits`) |> 
+  filter(UNIT_TYPE != "International Historic Site" & UNIT_TYPE != "Other Designation") |> 
+  mutate(simpler_type = case_when(UNIT_TYPE %in% c("National River", "National Lakeshore", 
+                                                   "National Seashore", "National Wild & Scenic River") ~
+                                    "River, Lakeshore, Seashore",
+                                  UNIT_TYPE %in% c("National Historic Site", "National Historical Park") ~ 
+                                    "Historic Site or Park",
+                                  UNIT_TYPE == "National Scenic Trail" ~ "Scenic Trail",
+                                  UNIT_TYPE %in% c("National Battlefield", "National Battlefield Park",
+                                                   "National Battlefield Site", "National Memorial",
+                                                   "National Military Park") ~
+                                    "Memorial, Military Park, Battlefield",
+                                  UNIT_TYPE %in% c("National Preserve", "National Recreation Area", 
+                                                   "National Reserve") ~
+                                    "Reserve, Preserve, Recreation Area",
+                                  UNIT_TYPE == "National Monument" ~ "Monument",
+                                  TRUE ~ UNIT_TYPE))
+```
+
+```{r}
+#| code-fold: true 
+state_map <-
+  vl_chart() |>
+  vl_mark_geoshape(fill = "transparent", stroke = "grey", strokeWidth = 0.5) |>
+  vl_add_data(
+    url = us_map_url, 
+    format = list(type = "topojson", feature = "states"))
+
+park_points <- 
+  vl_chart() |> 
+  vl_filter("datum.Year == 2024") |>
+  vl_mark_point(strokeWidth = 0.3  ) |> 
+  vl_encode(longitude = "LONG:Q", latitude = "LAT:Q") |>
+  vl_encode_color(value = "black", ) |> 
+  vl_encode_fill("simpler_type:N", title = "") |>
+  vl_encode_size("Visits:Q") |>
+  vl_encode_opacity(value = 0.7) |>
+  vl_add_data(graphic_data)
+
+vl_layer(state_map, park_points) |>
+  vl_add_properties(projection = list(type = "albersUSA"),
+                    width = 450,
+                    height = 300,
+                    title = "Most Visited National Park Service Lands in 2024") #|>
+  # vl_add_interval_selection(
+  #   name = "panzoom", 
+  #   bind = "scales",  encodings = c("longitude", "latitude"), 
+  #   resolve = "global",   
+  #   translate = TRUE,     
+  #   zoom = TRUE)          
+```
 
 ## Exercise 5 - Using features
 
