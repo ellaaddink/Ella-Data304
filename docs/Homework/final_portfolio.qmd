@@ -239,7 +239,7 @@ final_parks_data <- parks |>
          LONG = X,
          Visits = `Recreation Visits`) |> 
   filter(UNIT_TYPE != "International Historic Site" & UNIT_TYPE != "Other Designation") |> 
-  mutate(simpler_type = case_when(UNIT_TYPE %in% c("National River", "National Lakeshore", 
+  mutate(Type = case_when(UNIT_TYPE %in% c("National River", "National Lakeshore", 
                                                    "National Seashore", "National Wild & Scenic River") ~
                                     "River, Lakeshore, Seashore",
                                   UNIT_TYPE %in% c("National Historic Site", "National Historical Park") ~ 
@@ -275,14 +275,14 @@ park_points <-
   vl_mark_point(strokeWidth = 0.3  ) |> 
   vl_encode(longitude = "LONG:Q", latitude = "LAT:Q") |>
   vl_encode_color(value = "black") |> 
-  vl_encode_fill("simpler_type:N", title = "Type") |>
+  vl_encode_fill("Type:N") |>
   vl_encode_size("Visits:Q",
                  legend = list(direction = "vertical")) |>
   vl_scale_size(bins = c(100, 100000, 5000000, 12000000, 18000000),
                 rangeMin = 20, rangeMax = 300) |>
   vl_encode_opacity(value = 0.7) |>
   vl_add_data(final_parks_data) |>
-  vl_encode_tooltip_array(c("UNIT_NAME", "Visits", "UNIT_TYPE", "STATE")) 
+  vl_encode_tooltip_array(c("UNIT_NAME", "Visits", "Type", "STATE")) 
 
 map <- vl_layer(state_map, park_points) |>
   vl_add_properties(projection = list(type = "albersUSA"),
@@ -297,8 +297,9 @@ vl_chart() |>
   vl_encode_y("UNIT_NAME:N",
               title = "",
               sort = list(field = "Visits", order = "descending")) |>
-  vl_encode_fill("simpler_type:N") |>
+  vl_encode_fill("Type:N") |>
   vl_add_data(top_10_parks) |>
+  vl_encode_tooltip_array(c("UNIT_NAME", "Visits", "Type", "STATE")) |>
   vl_add_properties(height = 200, width = 200, 
                     title = list(text = "Top 10 Most Visited",
                                  fontWeight = 300))
@@ -306,6 +307,10 @@ vl_chart() |>
 vl_vconcat(map, bar_graph) |>
   vl_add_properties(align = "center")
 ```
+
+I chose to encode the type of national park land by color. I used the default color scheme which does well at providing distinct colors for the qualitative data. I wrangled the data quite a bit to combine the many original types into a smaller number of groups and I tried to keep their names as short and simple as possible. This hopefully makes it easier for the viewer to understand and comprehend the legend. I chose to encode the number of visits by size of each point. Because comprehending areas of circles is hard for the human eye, I tried to limit the number of size groups I chose and binned them so there are only four distinct sizes of points. I also tried to make sure the two layers for the map worked well together by decreasing the width of the state border lines and decreasing the opacity of the points so more can be seen when they overlap. I added a tooltip to both the map and bar graph so the viewer can see the specific information.
+
+I decided to concat the map with the bar graph of the top 10 visited locations to highlight these for the viewer. I ordered the bars from greatest to the least visits because it is more meaningful to the viewer than an alphabetical order. I also colored the bars in the same way the points are colored on the map to stay consistent and help connect them. I considered many options for this second graph below the map. I did not give myself enough time and what I really wanted to do was have a line graph of the visitation over time for the location the viewer chose by clicking on the point on the map. I also considered adding a slider for the year so a person could see the change in visitation over time on both the map and bar graph. I could not figure out how to line up the bar graph and map when they are concatenated.
 
 ## Exercise 5 - Using features
 
@@ -329,4 +334,10 @@ Where I used these features:
 
 a\. Name 2 or 3 examples of where I used a feature we did not discuss in class (a new kind of mark, transform, a way to customize something, a way to use an interaction, etc)
 
+-   Sadly, I am not sure I used any new vegalite features that we did not discuss in class. However, I did figure out how to convert a shapefile to csv format and then save it as a file for my national park graphic. I also used some data wrangling functions in R that were not discussed in class.
+
 b\. Name 2 or 3 examples of where I followed the advice of Wilke or Knaflic
+
+-   Wilke advises in section 6.1 to make sure your bars have a meaningful order to them when making bar graphs. I therefore ordered my bars in my "masterpiece" graphic from greatest to least visits rather than leaving them with their default order which was most likely alphabetical.
+
+-   Knaflic advises on page 96 to label data directly when you can to de-clutter your graphic. Therefore, for my Tanzania graphic and graphic challenge, I labeled the lines on my graphs directly by adding additional text labels. I also followed Knaflic's advice on page 97 to give the labels consistent colors which is described as a way of "leveraging the Gestalt principles of similarity."
