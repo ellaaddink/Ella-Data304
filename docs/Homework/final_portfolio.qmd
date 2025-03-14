@@ -54,10 +54,11 @@ vl_chart() |>
   vl_encode_column("region:N", title = "Region") |>
   vl_add_data(genetics_long) |>
   vl_add_properties(height = 150, width = 80,
-                    title = "Distinct Differences in Twin Genetic Shares for Europe and West Africa")
+                    title = list(text = "Large Differences in Twin Genetic Shares for Europe and West Africa Regions",
+                                 dx = 80))
 ```
 
-One would expect identical twins to receive the same results from DNA kits, but often times this is not the case. For the 6 pairs of twins included here, we can see distinct differences in some of their measured genetic shares for the NW Europe, SE Europe, and West Africa regions. The largest difference between a pair of twins was for the SE Europe genetic share using the MyHeritage DNA kit with a difference of almost 0.1.  
+One would expect identical twins to receive the same results from DNA kits, but often times this is not the case. For the 6 pairs of twins included here, we can see distinct differences in some of their measured genetic shares for the NW Europe, SE Europe, and West Africa regions. The largest difference between a pair of twins was for the SE Europe genetic share using the MyHeritage DNA kit with a difference of almost 0.1. Interestingly, most of the larger differences are occurring for one set of twins (pair 1) in both of their only genetic share regions (NW Europe and SE Europe) and using both MyHeritage and 23andMe DNA kits.
 
 Comparing DNA kits
 
@@ -73,9 +74,13 @@ vl_chart() |>
   vl_legend_color(title = "Twin") |>
   vl_encode_detail("twin:N") |>
   vl_encode_facet("region:N", columns = 3, title = "Region") |> 
-  vl_add_properties(width = 200, height = 120) |> 
+  vl_add_properties(width = 200, height = 120,
+                    title = list(text = "Ancestry DNA Kit Results Vary Distinctly From 23andMe and MyHeritage",
+                                 dx = 130)) |> 
   vl_add_data(genetics_long)
 ```
+
+When comparing the results of three different DNA kits for six pairs of twins, there are distinct differences between the genetic shares reported in the kits. For four out of the five genetic share regions included in the kits, there is at least one pair of twins where the Ancestry kit has very different results from the other two.
 
 ## Exercise 2 - Data & Graphic Challenge
 
@@ -197,9 +202,17 @@ vl_layer(fam_plan_line, contraception_line,
                     title = "Contraception Use and Family Planning Increase in Tanzania")
 ```
 
-Over the last few decades, the use of modern contraception in Tanzania has steadily increased with the largest increase occurring after 2010. The unmet need for family planning has decreased slightly since 1992 by about 5% total. Potentially associated with both of these is the decrease in the total fertility rate for all women ages 15-49. 
+Over the last few decades, the use of modern contraception in Tanzania has steadily increased with the largest increase occurring after 2010. The unmet need for family planning has decreased slightly since 1992 by about 5% total. Potentially associated with both of these is the decrease in the total fertility rate for all women ages 15-49.
 
 ## Exercise 4 - Masterpiece
+
+My data:
+
+[National Park Visits Data](National_Park_Data.xlsx) from a query builder found here [link](https://irma.nps.gov/Stats/Reports/National)
+
+[National Park Locations Shapefile](nps_boundary_centroids.shp) from here [link](https://catalog.data.gov/dataset/administrative-boundaries-centroids-of-national-park-system-units-c5fb0)
+
+[National Park Locations CSV](parks.csv)
 
 ```{r}
 #| code-fold: true 
@@ -215,7 +228,7 @@ parks <- read.csv("parks.csv")
 ```{r}
 #| code-fold: true 
 # Cleaning and joining data
-graphic_data <- parks |> 
+final_parks_data <- parks |> 
   left_join(park_visits, join_by(UNIT_CODE == `Unit Code`),
             relationship = "many-to-many") |> 
   filter(!is.na(`Recreation Visits`)) |>
@@ -261,19 +274,14 @@ park_points <-
   vl_encode_fill("simpler_type:N", title = "") |>
   vl_encode_size("Visits:Q") |>
   vl_encode_opacity(value = 0.7) |>
-  vl_add_data(graphic_data)
+  vl_add_data(final_parks_data) |>
+  vl_encode_tooltip_array(c("UNIT_NAME", "Visits", "UNIT_TYPE", "STATE"))
 
 vl_layer(state_map, park_points) |>
   vl_add_properties(projection = list(type = "albersUSA"),
                     width = 450,
                     height = 300,
-                    title = "Most Visited National Park Service Lands in 2024") #|>
-  # vl_add_interval_selection(
-  #   name = "panzoom", 
-  #   bind = "scales",  encodings = c("longitude", "latitude"), 
-  #   resolve = "global",   
-  #   translate = TRUE,     
-  #   zoom = TRUE)          
+                    title = "Most Visited National Park Service Lands in 2024")
 ```
 
 ## Exercise 5 - Using features
