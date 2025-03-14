@@ -254,6 +254,10 @@ final_parks_data <- parks |>
                                     "Reserve, Preserve, Recreation Area",
                                   UNIT_TYPE == "National Monument" ~ "Monument",
                                   TRUE ~ UNIT_TYPE))
+
+top_10_parks <- final_parks_data |> 
+  filter(Year == 2024) |> 
+  filter(Visits > 4800000)
 ```
 
 ```{r}
@@ -270,18 +274,37 @@ park_points <-
   vl_filter("datum.Year == 2024") |>
   vl_mark_point(strokeWidth = 0.3  ) |> 
   vl_encode(longitude = "LONG:Q", latitude = "LAT:Q") |>
-  vl_encode_color(value = "black", ) |> 
-  vl_encode_fill("simpler_type:N", title = "") |>
-  vl_encode_size("Visits:Q") |>
+  vl_encode_color(value = "black") |> 
+  vl_encode_fill("simpler_type:N", title = "Type") |>
+  vl_encode_size("Visits:Q",
+                 legend = list(direction = "vertical")) |>
+  vl_scale_size(bins = c(100, 100000, 5000000, 12000000, 18000000),
+                rangeMin = 20, rangeMax = 300) |>
   vl_encode_opacity(value = 0.7) |>
   vl_add_data(final_parks_data) |>
-  vl_encode_tooltip_array(c("UNIT_NAME", "Visits", "UNIT_TYPE", "STATE"))
+  vl_encode_tooltip_array(c("UNIT_NAME", "Visits", "UNIT_TYPE", "STATE")) 
 
-vl_layer(state_map, park_points) |>
+map <- vl_layer(state_map, park_points) |>
   vl_add_properties(projection = list(type = "albersUSA"),
                     width = 450,
                     height = 300,
-                    title = "Most Visited National Park Service Lands in 2024")
+                    title = "Recreational Visits to National Park Service Lands in 2024") 
+
+bar_graph <- 
+vl_chart() |> 
+  vl_mark_bar() |> 
+  vl_encode_x("Visits:Q") |>
+  vl_encode_y("UNIT_NAME:N",
+              title = "",
+              sort = list(field = "Visits", order = "descending")) |>
+  vl_encode_fill("simpler_type:N") |>
+  vl_add_data(top_10_parks) |>
+  vl_add_properties(height = 200, width = 200, 
+                    title = list(text = "Top 10 Most Visited",
+                                 fontWeight = 300))
+
+vl_vconcat(map, bar_graph) |>
+  vl_add_properties(align = "center")
 ```
 
 ## Exercise 5 - Using features
@@ -294,7 +317,7 @@ Where I used these features:
 
 -   Facets: Genetics Graphics
 
--   Concatenation or repeat:
+-   Concatenation or repeat: Masterpiece
 
 -   Non-default settings for a channel’s scale or guide: Tanzania Graphic
 
